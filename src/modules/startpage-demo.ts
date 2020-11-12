@@ -56,6 +56,18 @@ export const getPrivacyPolicyHeadingText = async (
 }
 
 /**
+ * An empty example of a different piece of logic.
+ *
+ * @param {Page} page
+ * @return {Promise<boolean>}
+ */
+export const someTruthyCheck = async (page: Page): Promise<boolean> => {
+  const element = await page.$(`div#doesNotExist`)
+
+  return !!element
+}
+
+/**
  * Build a simple container for multi-page steps.
  *
  * @param {Page} page
@@ -65,7 +77,11 @@ export const getPrivacyPolicyHeadingText = async (
 export class StartpageDemo {
   constructor(protected readonly page: Page) {}
 
-  async getPrivacyPolicyHeadingText() {
-    return getPrivacyPolicyHeadingText(this.page)
+  async getPrivacyPolicyHeadingText(): Promise<string> {
+    return await getPrivacyPolicyHeadingText(this.page)
+  }
+
+  async someTruthyCheck(): Promise<boolean> {
+    return await someTruthyCheck(this.page)
   }
 }
