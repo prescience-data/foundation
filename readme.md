@@ -103,7 +103,7 @@ Local storage folder for switching Chrome profiles.
 
 Uses the fantastic [Prisma](https://www.prisma.io) database abstraction library with a simple `sqlite` database, but this can easily be configured for any local or remote RDBS or keystore database.
 
-https://www.prisma.io/
+https://www.prisma.io
 
 ##### Commands
 ```shell script
@@ -133,7 +133,7 @@ if (result) {
 })()
 ```
 
-### Logging
+### 📃 Logging
 
 > src/services/logger.ts
 
@@ -162,9 +162,9 @@ The project comes preconfigured with the following tooling to keep your code nea
   - https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code
 
 
-## 🤷‍♀️Work In Progress
+## Work In Progress
 
-Any contributions on this would be much appreciated!
+🤷‍♀️Any contributions on this would be much appreciated!
 
 <img alt="Halp!" src="https://media1.tenor.com/images/7cd8ad78ff0ca1e486f081094b552e3c/tenor.gif" height="250" /> <br />
 
