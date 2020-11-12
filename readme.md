@@ -8,7 +8,7 @@
 
 It uses the (in)famous [Puppeteer-Extra](https://github.com/berstend/puppeteer-extra) package as the primary Puppeteer driver to enable its library of `Stealth` plugins and evasions.
 
-> PS: If you're working on botting and looking for a great developer community, check out the Puppeteer-Extra discord server ✊: https://discord.gg/vz7PeKk 
+> ✊ PS: If you're working on botting and looking for a great developer community, check out the Puppeteer-Extra discord server: https://discord.gg/vz7PeKk 
 
 It does not wrap existing libraries or attempt to "add" much that doesn't already exist, but starting a new project with an unfamiliar library can come with a lot of questions around project structure and tooling.
 
@@ -19,7 +19,7 @@ This attempts to solve these issues with a ready-to-go scaffolding, however it s
 
 ### 🎬 Download and init
 
-```shell script
+```bash
 $ git clone https://github.com/prescience-data/foundation.git && cd ./foundation # Clone the project
 $ npm install -g typescript sqlite3 npx # Optional, install these if you need them
 $ npm run update # Updates the package.json file dependencies to latest versions
@@ -33,7 +33,7 @@ Edit the `.env` to your liking and add any services like `Google Cloud Logging` 
 ### ⛷ Build / Run
 The project is TypeScript so there are a few commands provided for this.
 
-```shell script
+```bash
 $ npm run build:clean # Just build the TypeScript files
 # Or...
 $ npm run bot # Builds the app and runs your entrypoint file
@@ -41,9 +41,12 @@ $ npm run bot # Builds the app and runs your entrypoint file
 
 <img alt="Run it!" src="https://media1.tenor.com/images/73655431879923747888a61a8850547d/tenor.gif" height="250" />
 
-## Structure
+## Project Structure
 
 ### 🛠 Config
+
+> src/config.ts
+> .env
 
 The project uses a `.env` in the root to define most of the common environment variables, but you can call these from a database etc if you prefer. 
 
@@ -75,6 +78,8 @@ It might seem like overkill to abstract logic out at the start _(which may be tr
 - **delay(min: number, max: number)** Shortcuts the rand method to return a options-ready object.
 
 ### 🖥 Browsers
+
+> src/browsers/<browser>.ts
 
 - **Chrome** Using executable path and [Stealth](https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth) plugin.
 - **MultiLogin** http://docs.multilogin.com/l/en/article/tkhr0ky2s6-puppeteer-browser-automation
@@ -125,6 +130,8 @@ if (result) {
 ```
 
 ### Logging
+
+> src/services/logger.ts
 
 Uses [Winston](https://github.com/winstonjs/winston) to handle logging and output. Can but configured to transport to console, file, or third-party transport like `Google Cloud Logging` (provided).
 
