@@ -14,6 +14,10 @@ It does not wrap existing libraries or attempt to "add" much that doesn't alread
 
 This attempts to solve these issues with a ready-to-go scaffolding, however it should be noted that the structure is _just, like, my opinion man..._, considered under heavy flux - this shouldn't matter though, because it's just a starting point and you should take it in whatever direction makes sense.
 
+#### "Ok, but I've come from Selenium / Python?"
+If you're new to both modern JavaScript and Puppteer, here's a quick rundown: 
+
+[Newbie Guide To Scraping With Puppeteer](https://github.com/berstend/puppeteer-extra/wiki/Newbie-Guide-To-Scraping-With-Puppeteer)
 
 ## Installation
 
@@ -140,6 +144,23 @@ Check the docs here to extend or configure transports / switch out completely.
 - **Winston** https://github.com/winstonjs/winston
 - **Google Cloud Logging** https://cloud.google.com/logging/docs
 - **Bugsnag** https://docs.bugsnag.com/platforms/javascript/ 
+
+
+## Tooling
+
+The project comes preconfigured with the following tooling to keep your code neat and readable. Make sure to configure your IDE to pick up the configs.
+
+- **Prettier** 
+  - https://prettier.io/
+  - https://github.com/prettier/prettier
+  - https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
+- **ESLint** 
+  - https://eslint.org/
+  - https://github.com/eslint/eslint
+  - https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+  - https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code
+
 
 ## 🤷‍♀️Work In Progress
 
