@@ -1,10 +1,14 @@
-# 🧱 Foundation
+# 🧱 Foundation - Puppeteer Bot Starter Kit
 
 ## What it is
 
-<img alt="Wot..." src="https://media1.tenor.com/images/f3707787e8d0475075e7349402e97e08/tenor.gif" height="250" /> <br /><br />
+<img alt="Wot..." src="https://media1.tenor.com/images/f3707787e8d0475075e7349402e97e08/tenor.gif" height="250" /> <br /> 
 
-This is intended as an simple entrypoint for developers new to designing Puppeteer bots.
+This is intended as an simple entrypoint for developers new to designing [Puppeteer](https://pptr.dev) bots.
+
+It uses the (in)famous [Puppeteer-Extra](https://github.com/berstend/puppeteer-extra) package as the primary Puppeteer driver to enable its library of `Stealth` plugins and evasions.
+
+> PS: If you're working on botting and looking for a great developer community, check out the Puppeteer-Extra discord server: https://discord.gg/vz7PeKk
 
 It does not wrap existing libraries and attempt to "add" much that doesn't already exist, but starting a new project can come with a lot of questions around project structure and tooling.
 
@@ -22,7 +26,7 @@ $ npm run db:init # Initialises a sqlite database
 ```
 
 ### 👨‍🔧 Configure
-Edit the `.env` to your liking and add any services like Google Cloud logging etc.
+Edit the `.env` to your liking and add any services like `Google Cloud Logging` etc.
 
 ### ⛷ Build / Run
 The project is TypeScript so there are a few commands provided for this.
@@ -45,7 +49,7 @@ The main Puppeteer options are defined in the `config.ts` file.
 
 ### 🤖 Bot
 
-Main self executing function entry-point.
+Main self executing function entry-point. 
 
 ### ⚙ Business Logic
 

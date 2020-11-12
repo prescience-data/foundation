@@ -1,7 +1,7 @@
 {
   "name": "foundation",
   "version": "1.0.0",
-  "description": "A uniform template to use as a foundation for bot construction.",
+  "description": "A uniform template to use as a foundation for Puppeteer bot construction.",
   "main": "build/bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
