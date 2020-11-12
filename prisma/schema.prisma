@@ -1,0 +1,50 @@
+// Prisma Schema
+// @tutorial https://pris.ly/d/prisma-schema
+
+// Datasources
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Generators
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Models
+model Profile {
+  id        Int      @id @default(autoincrement())
+  uuid      String   @unique
+  email     String   @unique
+  firstName String?
+  lastName  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Scrape {
+  id        Int      @id @default(autoincrement())
+  url       String
+  html      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model MouseMovement {
+  id        Int        @id @default(autoincrement())
+  scaleX    Int?
+  scaleY    Int?
+  positions Position[]
+}
+
+model Position {
+  id              Int           @id @default(autoincrement())
+  order           Int
+  type            String
+  x               Float
+  y               Float
+  delay           Float
+  mouseMovement   MouseMovement @relation(fields: [mouseMovementId], references: [id])
+  mouseMovementId Int
+}

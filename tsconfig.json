@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+	"target":                       "esnext",
+	"module":                       "commonjs",
+	"moduleResolution":             "node",
+	"esModuleInterop":              true,
+	"noImplicitAny":                true,
+	"noImplicitReturns":            true,
+	"allowJs":                      false,
+	"noFallthroughCasesInSwitch":   true,
+	"sourceMap":                    true,
+	"allowSyntheticDefaultImports": true,
+	"outDir":                       "build",
+	"baseUrl":                      "src",
+	"resolveJsonModule":            true,
+	"strict":                       true
+  },
+  "include":         [
+	"src/**/*"
+  ],
+  "exclude":         [
+	"node_modules",
+	"node_modules/**/*",
+	"dist",
+	"build",
+	"vendor",
+	"src/**/*.spec.tsx",
+	"src/**/*.spec.ts"
+  ]
+}

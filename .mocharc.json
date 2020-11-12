@@ -1,0 +1,11 @@
+{
+  "diff": true,
+  "extension": ["js"],
+  "package": "./package.json",
+  "reporter": "spec",
+  "slow": 75,
+  "parallel": false,
+  "timeout": 30000,
+  "ui": "bdd",
+  "spec": "./build/test/*.spec.js"
+}
