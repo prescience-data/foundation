@@ -1,6 +1,6 @@
 # 🧱 Foundation - Puppeteer Bot Starter Kit
 
-## What it is
+## What it is?
 
 <img alt="Wot..." src="https://media1.tenor.com/images/f3707787e8d0475075e7349402e97e08/tenor.gif" height="250" /> <br /> 
 
@@ -19,7 +19,8 @@ This attempts to solve these, but should be considered under heavy development a
 ### 🎬 Download and init
 
 ```shell script
-$ git clone 
+$ git clone https://github.com/prescience-data/foundation.git && cd ./foundation
+$ npm install -g typescript sqlite3 # Optional, install these if you need them
 $ npm run update # Updates the package.json file dependencies to latest versions
 $ npm install # Installs dependencies
 $ npm run db:init # Initialises a sqlite database
@@ -66,7 +67,7 @@ It might seem like overkill to abstract logic out at the start - which may be tr
 
 ### 🖥 Browsers
 
-- **Chrome** Using executable path and Stealth plugin.
+- **Chrome** Using executable path and [Stealth](https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth) plugin.
 - **MultiLogin** http://docs.multilogin.com/l/en/article/tkhr0ky2s6-puppeteer-browser-automation
 - **Incognition** https://incogniton.com/knowledge%20center/selenium-browser-automation
 
@@ -88,9 +89,10 @@ Any contributions on this would be much appreciated!
 <img alt="Halp" src="https://media1.tenor.com/images/7cd8ad78ff0ca1e486f081094b552e3c/tenor.gif" height="250" /> <br />
 
 - [ ] Writing `Mocha` tests
-- [ ] More demos
+- [ ] More demos!
 - [ ] `Google Cloud Logging` instructions
 - [ ] Define other database systems eg `Firebase`
 - [ ] Containerize with `Docker`
 - [ ] Write mouse movement recorder and database storage driver
-- [ ] Add `ghost-cursor` demo
+- [ ] Add `ghost-cursor` to demo
+- [ ] Apply optional world isolation
