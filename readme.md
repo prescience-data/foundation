@@ -20,7 +20,7 @@ This attempts to solve these, but should be considered under heavy development a
 
 ```shell script
 $ git clone https://github.com/prescience-data/foundation.git && cd ./foundation
-$ npm install -g typescript sqlite3 # Optional, install these if you need them
+$ npm install -g typescript sqlite3 npx # Optional, install these if you need them
 $ npm run update # Updates the package.json file dependencies to latest versions
 $ npm install # Installs dependencies
 $ npm run db:init # Initialises a sqlite database

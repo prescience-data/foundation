@@ -20,6 +20,10 @@
   "engines": {
     "node": ">=10"
   },
+  "bugs": {
+    "url": "https://github.com/prescience-data/foundation/issues"
+  },
+  "homepage": "https://github.com/prescience-data/foundation#readme",
   "keywords": [
     "puppeteer",
     "puppeteer-extra",
