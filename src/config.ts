@@ -15,7 +15,10 @@ export const defaultUserAgent: string =
  * @todo Resolve this from config.
  * @type {{width: number, height: number}}
  */
-export const defaultViewport = { width: 1366, height: 768 }
+export const defaultViewport = {
+  width: parseInt(env.BROWSER_WIDTH || "1366"),
+  height: parseInt(env.BROWSER_HEIGHT || "768"),
+}
 
 /**
  * Retrieves the browser executable path required in launch options.
@@ -73,7 +76,7 @@ export const options: LaunchOptions = {
     "--user-agent=" + defaultUserAgent,
     "--lang=en-US,en;q=0.9",
   ],
-  executablePath: getBrowserExecutablePath(env.OS || "win10"),
+  executablePath: getBrowserExecutablePath(env.OS),
   userDataDir: "../storage/profiles/default",
   defaultViewport: defaultViewport,
 }

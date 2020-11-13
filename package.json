@@ -4,7 +4,8 @@
   "description": "A uniform template to use as a foundation for Puppeteer bot construction.",
   "main": "build/bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run build && mocha",
+    "tests": "npm run build && node \"./build/tests/run.js\"",
     "bot": "npm run build && node \"./build/bot.js\"",
     "build": "npx tsc --build",
     "build:clear": "rm -rf ./build/ && mkdir ./build/ && echo * >> ./build/.gitignore",

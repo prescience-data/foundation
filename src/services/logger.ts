@@ -3,7 +3,10 @@ import winston from "winston"
 
 import env from "./env"
 
-// Define primary transports.
+/**
+ * Define primary transports.
+ * @type {(winston.ConsoleTransportInstance | winston.FileTransportInstance)[]}
+ */
 const transports: (
   | winston.transports.StreamTransportInstance
   | LoggingWinston
@@ -20,7 +23,10 @@ const transports: (
     level: "error",
   }),
 ]
-// Define Google Cloud logging settings.
+
+/**
+ * Define Google Cloud logging settings.
+ */
 if (env && env.GOOGLE_PROJECT_ID && env.GOOGLE_LOGGING_KEYFILE) {
   transports.push(
     new LoggingWinston({
@@ -31,15 +37,23 @@ if (env && env.GOOGLE_PROJECT_ID && env.GOOGLE_LOGGING_KEYFILE) {
   )
 }
 
-// Define Winston configuration.
+/**
+ * Define Winston configuration.
+ * @type {{transports: (winston.transports.StreamTransportInstance | LoggingWinston)[], level: *, format: Format}}
+ */
 const options: winston.LoggerOptions = {
   level: env.LOG_LEVEL || "info",
   format: winston.format.json(),
   transports: transports,
 }
 
-// Create logger instance.
+/**
+ * Create logger instance.
+ * @type {winston.Logger}
+ */
 export const logger: winston.Logger = winston.createLogger(options)
 
-// Export default module.
+/**
+ * Export default module.
+ */
 export default logger
