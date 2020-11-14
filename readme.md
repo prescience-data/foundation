@@ -34,7 +34,7 @@ $ git clone https://github.com/prescience-data/foundation.git && cd ./foundation
 $ npm run init
 ```
 #### Manual
-The automatic version essentially runs the following commands:
+The automatic version runs the following commands:
 ```shell script
 $ git clone https://github.com/prescience-data/foundation.git && cd ./foundation # Clone the project
 $ npm run update  # Updates the package.json file dependencies to latest versions
@@ -46,14 +46,16 @@ $ npm run build:clean # Build the TypeScript code
 ### 👨‍🔧 Configure
 Edit the `.env` to your liking and add any services like `Google Cloud Logging` etc.
 
-> ⚠ Remember to .gitignore your .env file before committing to any public repositories.
+> ⚠ Remember to `.gitignore` and `git -rm -rf` your `.env` file before committing to any public repositories.
 
 ### ⛷ Build / Run
 The project is [TypeScript](https://www.typescriptlang.org) so there are a few commands provided for this.
 
 ```shell script
 $ npm run build:clean # Just build the TypeScript files
-# Or...
+```
+_or..._
+```shell script
 $ npm run bot # Builds the app and runs your entrypoint file
 ```
 
