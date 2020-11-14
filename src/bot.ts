@@ -2,7 +2,7 @@ import { Browser, Page } from "puppeteer"
 
 import Chrome from "./browsers/chrome"
 import { getPrivacyPolicyHeadingText } from "./modules/startpage-demo"
-import DB from "./services/db"
+import db from "./services/db"
 import logger from "./services/logger"
 
 ;(async () => {
@@ -29,7 +29,7 @@ import logger from "./services/logger"
   // If a result was returned, store it in the database.
   if (result) {
     logger.info(`Saving result to database.`)
-    DB.scrape.create({
+    db.scrape.create({
       data: {
         url: "https://www.startpage.com/en/privacy-policy/",
         html: result,

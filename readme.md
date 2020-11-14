@@ -15,9 +15,9 @@ It does not wrap existing libraries or attempt to "add" much that doesn't alread
 This attempts to solve these issues with a ready-to-go scaffolding, however it should be noted that the structure is _just, like, my opinion man..._, considered under heavy flux - this shouldn't matter though, because it's just a starting point and you should take it in whatever direction makes sense.
 
 #### "Ok, but I've come from Selenium / Python?"
-If you're new to both modern JavaScript _and_ `Puppeteer`, here's a quick rundown: 
+If you're new to both modern JavaScript (`ES6` & `TypeScript`) _and_ `Puppeteer`, here's a quick rundown: 
 
-[Newbie Guide To Scraping With Puppeteer](https://github.com/berstend/puppeteer-extra/wiki/Newbie-Guide-To-Scraping-With-Puppeteer)
+📚 [Newbie Guide To Scraping With Puppeteer](https://github.com/berstend/puppeteer-extra/wiki/Newbie-Guide-To-Scraping-With-Puppeteer)
 
 ## Installation
 
@@ -61,8 +61,7 @@ $ npm run bot # Builds the app and runs your entrypoint file
 
 ### 🛠 Config
 
-> src/config.ts
-> .env
+> /src/config.ts & /.env
 
 The project uses a `.env` in the root to define most of the common environment variables, but you can call these from a database etc if you prefer. 
 
@@ -70,25 +69,33 @@ The main Puppeteer `LaunchOptions` are defined in the `config.ts` file.
 
 ### 🤖 Bot
 
-> src/bot.ts
+> /src/bot.ts
 
-Main self executing function entry-point. 
+Main self-executing function entry-point. 
 
 This is where you execute each part of your scoped logic from the `modules` section cleanly.
 
+You call this module from the cli with:
+
+```shell script
+$ npm run bot
+```
+
 ### ⚙ Business Logic
 
-> src/modules/<name>.ts 
+> /src/modules/<name>.ts 
 
-Your bot logic should be defined in clear logical scopes within the `src/modules` folder. It's best to keep things neat and abstracted from the start, to avoid huge, confusing single files as your bot grows.
+Your bot logic should be defined in clear logical scopes within the `src/modules` folder. It's best to keep things neat and abstracted from the start to avoid huge, confusing, single-file blobs as your bot grows.
 
-It might seem like overkill to abstract logic out at the start _(which may be true for very simple bots)_ but you'll notice very quickly how bloated a modestly complete bot can get.
+It might seem like overkill to abstract logic out at the start _(which may be true for very simple bots)_, but you'll notice very quickly how bloated a modestly complete bot can get.
 
 <img alt="Bloat" src="https://media1.tenor.com/images/8fc2c423280a6ae57be8660bb8898689/tenor.gif" width="350" /> <br />
 
 ### 👨‍🔬 Detection Tests
 
-A large part of building your bot is rapidly testing it against known detection code. Long term you'd want to develop your own internal tests by de-obfuscating the vendor code of your target, but using hosted ones is fine for rapid early development.
+A large part of building your bot is rapidly testing it against known detection code. 
+
+Long-term, you'll want to develop your own internal tests by de-obfuscating the vendor code of your target, however for rapid early development, using hosted ones is fine.
 
 You can use the existing detection tests provided, or build your own using the basic template provided.
 
@@ -136,14 +143,14 @@ $ npm run tests -- --page=sannysoft
 
 ### 🧰 Utils
 
-> src/utils.ts
+> /src/utils.ts
 
 - **rand(min: number, max: number, precision?: number)** Returns a random number from a range.
 - **delay(min: number, max: number)** Shortcuts the rand method to return a options-ready object.
 
 ### 🖥 Browsers
 
-> src/browsers/<browser>.ts
+> /src/browsers/<browser>.ts
 
 - **Chrome** Using executable path and [Stealth](https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth) plugin.
 - **MultiLogin** http://docs.multilogin.com/l/en/article/tkhr0ky2s6-puppeteer-browser-automation
@@ -152,14 +159,14 @@ $ npm run tests -- --page=sannysoft
 
 ### 💾 Storage
 
-> storage/profiles/<uuid>
+> /storage/profiles/<uuid>
 
 Local storage folder for switching Chrome profiles.
 
 ### 📦 Database
 
-> src/services/db.ts
-> prisma/schema.prisma
+> /src/services/db.ts
+> /prisma/schema.prisma
 
 Uses the fantastic [Prisma](https://www.prisma.io) database abstraction library with a simple `sqlite` database, but this can easily be configured for any local or remote RDBS or keystore database.
 
