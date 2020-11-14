@@ -165,10 +165,13 @@ $ npm run tests -- --page=sannysoft
 ```
 
 #### Available Tests
-- [**SannySoft**](https://bot.sannysoft.com) `--page=sannysoft`
-- [**ReCAPTCHA**](https://antcpt.com/eng/information/demo-form/recaptcha-3-test-score.html) `--page=recaptcha`
-- [**FingerprintJS Pro**](https://fingerprintjs.com/demo) `--page=fingerprintjs`
-- [**PixelScan**](https://pixelscan.net) `--page=pixelscan`
+
+- [**DataDome**](https://datadome.co) `npm run tests -- --page=datadome`
+- [**FingerprintJS Pro**](https://fingerprintjs.com/demo) `npm run tests -- --page=fingerprintjs`
+- [**AreYouHeadless**](https://arh.antoinevastel.com/bots/areyouheadless) `npm run tests -- --page=headless`
+- [**PixelScan**](https://pixelscan.net) `npm run tests -- --page=pixelscan`
+- [**ReCAPTCHA**](https://antcpt.com/eng/information/demo-form/recaptcha-3-test-score.html) `npm run tests -- --page=recaptcha`
+- [**SannySoft**](https://bot.sannysoft.com) `npm run tests -- --page=sannysoft`
 
 ### 🧰 Utils
 
