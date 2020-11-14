@@ -1,6 +1,5 @@
 import { LoggingWinston } from "@google-cloud/logging-winston"
 import chalk from "chalk"
-import emoji from "node-emoji"
 import winston, { Logger } from "winston"
 
 import env from "./env"
@@ -59,15 +58,6 @@ export const log: winston.Logger = winston.createLogger(options)
  * Provide a banner for cli.
  * @type {string}
  */
-const sparkles = (count: number) => {
-  const sparkle = emoji.get("crescent_moon")
-  let output = ""
-  for (let i = 0; i < count; i++) {
-    output += `${sparkle} `
-  }
-  return output
-}
-
 export const banner = (): Logger =>
   log.debug(
     chalk.magentaBright(`

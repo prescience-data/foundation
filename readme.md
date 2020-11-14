@@ -204,21 +204,21 @@ All regular browsers are auto-loaded with the [Stealth](https://github.com/berst
 ##### Chrome
 ```typescript
   // Using Chrome via the executable.
-  import Chrome from "./browsers" 
+  import Chrome from "../core/browsers" 
   const browser: Browser = await Chrome() 
   const page: Page = await browser.newPage()
 ```
 ##### MultiLogin
 ```typescript
   // Using MultiLogin with a profile id.
-  import MultiLogin from "./browsers" 
+  import MultiLogin from "../core/browsers" 
   const browser: Browser = await MultiLogin({ profileId: "fa3347ae-da62-4013-bcca-ef30825c9311"}) 
   const page: Page = await browser.newPage()
 ```
 ##### Browserless
 ```typescript
   // Using Browserless with an api token.
-  import Browserless from "./browsers" 
+  import Browserless from "../core/browsers" 
   const browser: Browser = await Browserless(env.BROWSERLESS_TOKEN) 
   const page: Page = await browser.newPage()
 ```

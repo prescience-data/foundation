@@ -1,0 +1,11 @@
+app
+core
+node_modules
+test
+debug.log
+.dockerignore
+.eslintrc.json
+.prettierignore
+.prettierrc.json
+docker-compose.yml
+Dockerfile
