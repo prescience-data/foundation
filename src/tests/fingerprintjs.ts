@@ -5,25 +5,34 @@ import logger from "../services/logger"
 import { whitespace } from "../utils"
 
 /**
- * Test PixelScan page.
+ * Tests the FingerprintJS Pro product demo.
  *
  * @param {Page} page
- * @return {Promise<string>}
+ * @param {number} delay
+ * @return {Promise<Record<string, any>>}
  */
-export const pixelscan = async (page: Page): Promise<Record<string, any>> => {
+export const fingerprintjs = async (
+  page: Page,
+  delay = 4000
+): Promise<Record<string, any>> => {
   // Load the test page.
-  logger.info(`Loading pixelscan.net test...`)
-  await page.goto("https://pixelscan.net", { waitUntil: "networkidle2" })
-  await page.waitForTimeout(1500)
-  // Extract the result element text.
-  const element = await page.$("#consistency h1")
+  logger.info(`Loading fingerprintjs.com demo test...`)
+  await page.goto("https://fingerprintjs.com/demo", {
+    waitUntil: "networkidle2",
+  })
+  await page.waitForTimeout(delay)
+  // Extract the result text.
+  await page.waitForSelector("table.table-compact")
+  const element = await page.$(
+    "table.table-compact > tbody > tr:nth-child(4) > td.miriam"
+  )
   if (!element) {
     throw new Error(`Could not find result element.`)
   }
-  // Clean the text.
   const result = whitespace(
     await page.evaluate((element) => element.textContent, element)
-  )
+  ).toLowerCase()
+
   // Notify and return result.
   if (result) {
     logger.info(chalk.green(`Success! Retrieved test page.`))
@@ -35,4 +44,4 @@ export const pixelscan = async (page: Page): Promise<Record<string, any>> => {
   }
 }
 
-export default pixelscan
+export default fingerprintjs

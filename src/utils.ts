@@ -44,3 +44,13 @@ export const getNodeFor = async (page: Page, path: string): Promise<any> => {
   })) as { result: any }
   return nodeObject
 }
+
+/**
+ * Cleans excess whitespace from a string.
+ *
+ * @param {string} value
+ * @return {string}
+ */
+export const whitespace = (value: string): string => {
+  return value.replace(/\s/g, " ")
+}

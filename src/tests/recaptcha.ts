@@ -2,6 +2,7 @@ import chalk from "chalk"
 import { Page } from "puppeteer"
 
 import logger from "../services/logger"
+import { whitespace } from "../utils"
 
 /**
  * Test your recaptcha score.
@@ -10,7 +11,7 @@ import logger from "../services/logger"
  * @return {Promise<string>}
  */
 export const recaptcha = async (page: Page): Promise<Record<string, any>> => {
-  // As a short demo, let's visit a website.
+  // Load the test page.
   logger.info(`Loading the antcpt.com ReCAPTCHA test...`)
   await page.goto(
     "https://antcpt.com/eng/information/demo-form/recaptcha-3-test-score.html",
@@ -21,9 +22,9 @@ export const recaptcha = async (page: Page): Promise<Record<string, any>> => {
   if (!element) {
     throw new Error(`Could not find score element.`)
   }
-  const result: string = (
+  const result: string = whitespace(
     await page.evaluate((element) => element.textContent, element)
-  ).trim()
+  )
 
   // Notify and return result.
   if (result) {
@@ -31,7 +32,7 @@ export const recaptcha = async (page: Page): Promise<Record<string, any>> => {
     result.includes("0.3") || result.includes("0.2") || result.includes("0.1")
       ? logger.info(chalk.bgRed(result))
       : logger.info(chalk.green(result))
-    return { score: result }
+    return { result: { score: result } }
   } else {
     logger.error(chalk.red(`Failed! No results were found.`))
     return {}

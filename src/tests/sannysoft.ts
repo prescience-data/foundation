@@ -50,7 +50,7 @@ const extractResultsFromPage = () => {
  * @return {Promise<string>}
  */
 export const sannysoft = async (page: Page): Promise<Record<string, any>> => {
-  // As a short demo, let's visit a website.
+  // Load the test page.
   logger.info(`Loading the bot.sannysoft.com test page...`)
   await page.goto("https://bot.sannysoft.com", {
     waitUntil: "networkidle2",
@@ -59,11 +59,10 @@ export const sannysoft = async (page: Page): Promise<Record<string, any>> => {
   await page.waitForTimeout(5000)
   // Extract test results from page.
   const result = await page.evaluate(extractResultsFromPage)
-
   // Notify and return result.
   if (result) {
     logger.info(chalk.green(`Success! Retrieved test page.`))
-    console.log(result)
+    console.log({ result: result })
     return result
   } else {
     logger.error(chalk.red(`Failed! Heading text was empty.`))

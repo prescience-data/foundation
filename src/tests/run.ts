@@ -28,6 +28,9 @@ import tests from "./index"
     case "recaptcha":
       await tests.recaptcha(page)
       break
+    case "fingerprintjs":
+      await tests.fingerprintjs(page)
+      break
     case "sannysoft":
     default:
       await tests.sannysoft(page)

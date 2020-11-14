@@ -2,37 +2,49 @@
 
 ## What it is?
 
-<img alt="Wot..." src="https://media1.tenor.com/images/f3707787e8d0475075e7349402e97e08/tenor.gif" height="250" /> <br /> 
+<img alt="Wot..." src="https://media1.tenor.com/images/f3707787e8d0475075e7349402e97e08/tenor.gif" width="350" /> <br /> 
 
 `Foundation` is intended as a simple entry-point / template for developers new to designing [Puppeteer](https://pptr.dev) bots.
 
 It uses the (in)famous [Puppeteer-Extra](https://github.com/berstend/puppeteer-extra) package as the primary Puppeteer driver to enable its library of `Stealth` plugins and evasions.
 
-> ✊ PS: If you're working on botting and looking for a great developer community, check out the Puppeteer-Extra discord server: https://discord.gg/vz7PeKk 
+> 👋 PS: If you're working on botting and looking for a great developer community, check out the Puppeteer-Extra discord server: https://discord.gg/vz7PeKk 
 
 It does not wrap existing libraries or attempt to "add" much that doesn't already exist, but starting a new project with an unfamiliar library can come with a lot of questions around project structure and tooling.
 
 This attempts to solve these issues with a ready-to-go scaffolding, however it should be noted that the structure is _just, like, my opinion man..._, considered under heavy flux - this shouldn't matter though, because it's just a starting point and you should take it in whatever direction makes sense.
 
-### "Ok, but I've come from Selenium / Python?"
+#### "Ok, but I've come from Selenium / Python?"
 If you're new to both modern JavaScript _and_ `Puppeteer`, here's a quick rundown: 
 
 [Newbie Guide To Scraping With Puppeteer](https://github.com/berstend/puppeteer-extra/wiki/Newbie-Guide-To-Scraping-With-Puppeteer)
 
 ## Installation
 
+> ⚠ Note for Windows users:
+> This project does not include cross-env, so using [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Terminal Preview](https://www.microsoft.com/en-au/p/windows-terminal-preview/9n8g5rfz9xk3?rtc=1) is basically required. 
+
 ### 🎬 Download and init
 
+##### Automatic
+```shell script
+$ git clone https://github.com/prescience-data/foundation.git && cd ./foundation # Clone the project
+$ npm run init
+```
+##### Manual
+The automatic version essentially runs the following commands:
 ```bash
 $ git clone https://github.com/prescience-data/foundation.git && cd ./foundation # Clone the project
-$ npm install -g typescript sqlite3 npx # Optional, install these if you need them
-$ npm run update # Updates the package.json file dependencies to latest versions
-$ npm install # Installs dependencies
+$ npm run update  # Updates the package.json file dependencies to latest versions
+$ npm install --loglevel=error # Installs dependencies
 $ npm run db:init # Initialises a sqlite database
+$ npm run build:clean # Build the TypeScript code
 ```
 
 ### 👨‍🔧 Configure
 Edit the `.env` to your liking and add any services like `Google Cloud Logging` etc.
+
+> Note: Remember to .gitignore your .env file before committing to any public repositories.
 
 ### ⛷ Build / Run
 The project is [TypeScript](https://www.typescriptlang.org) so there are a few commands provided for this.
@@ -43,7 +55,7 @@ $ npm run build:clean # Just build the TypeScript files
 $ npm run bot # Builds the app and runs your entrypoint file
 ```
 
-<img alt="Run it!" src="https://media1.tenor.com/images/73655431879923747888a61a8850547d/tenor.gif" height="250" />
+<img alt="Run it!" src="https://media1.tenor.com/images/73655431879923747888a61a8850547d/tenor.gif" width="350" />
 
 ## Project Structure
 
@@ -72,7 +84,55 @@ Your bot logic should be defined in clear logical scopes within the `src/modules
 
 It might seem like overkill to abstract logic out at the start _(which may be true for very simple bots)_ but you'll notice very quickly how bloated a modestly complete bot can get.
 
-<img alt="Bloat" src="https://media1.tenor.com/images/8fc2c423280a6ae57be8660bb8898689/tenor.gif" height="250" /> <br />
+<img alt="Bloat" src="https://media1.tenor.com/images/8fc2c423280a6ae57be8660bb8898689/tenor.gif" width="350" /> <br />
+
+### 👨‍🔬 Detection Tests
+
+A large part of building your bot is rapidly testing it against known detection code. Long term you'd want to develop your own internal tests by de-obfuscating the vendor code of your target, but using hosted ones is fine for rapid early development.
+
+You can use the existing detection tests provided, or build your own using the basic template provided.
+
+##### Example
+```ts
+export const pixelscan = async (page: Page): Promise<Record<string, any>> => {
+  // Load the test page.  
+  await page.goto("https://pixelscan.net", { waitUntil: "networkidle2" })
+  await page.waitForTimeout(1500)
+  // Extract the result element text.
+  const element = await page.$("#consistency h1")
+  if (!element) {
+    throw new Error(`Could not find result element.`)
+  }
+  const result = (
+    await page.evaluate((element) => element.textContent, element)
+  ).replace(/\s/g, " ").trim()
+  // Notify and return result.
+  if (result) {
+    logger.info(chalk.green(`Success! Retrieved test page.`))
+    logger.info(result)
+    return { result: result }
+  } else {
+    logger.error(chalk.red(`Failed! No results were found.`))
+    return {}
+  }
+}
+```
+
+> 🧠 If you add new tests remember to add them to the `index.ts` index to allow you to import all tests together if needed, and main `run.ts` file to allow cli access.
+
+<img alt="Very sneaky, sir." src="https://media1.tenor.com/images/1a1848dfc49207af73a827a63d37d244/tenor.gif" width="350" />
+
+##### Running Detection Tests
+To run your tests, use the command:
+```shell script
+$ npm run tests -- --page=sannysoft
+```
+
+##### Available Tests
+- [**SannySoft**](https://bot.sannysoft.com) `--page=sannysoft`
+- [**ReCAPTCHA**](https://antcpt.com/eng/information/demo-form/recaptcha-3-test-score.html) `--page=recaptcha`
+- [**FingerprintJS Pro**](https://fingerprintjs.com/demo) `--page=fingerprintjs`
+- [**PixelScan**](https://pixelscan.net) `--page=pixelscan`
 
 ### 🧰 Utils
 
@@ -115,14 +175,14 @@ $ npm run db:generate # Generates fresh prisma files
 
 ##### Example
 ```ts
-import DB from "./services/db"
+import db from "./services/db"
 ;(async () => {
 
 // Bot execution code...
 
 // If a result was returned, store it in the database.
 if (result) {
- DB.scrape.create({
+ db.scrape.create({
   data: {
     url: "https://www.startpage.com/en/privacy-policy/",
     html: result,
@@ -166,7 +226,7 @@ The project comes preconfigured with the following tooling to keep your code nea
 
 🤷‍♀️Any contributions on this would be much appreciated!
 
-<img alt="Halp!" src="https://media1.tenor.com/images/7cd8ad78ff0ca1e486f081094b552e3c/tenor.gif" height="250" /> <br />
+<img alt="Halp!" src="https://media1.tenor.com/images/7cd8ad78ff0ca1e486f081094b552e3c/tenor.gif" width="350" /> <br />
 
 - [ ] Writing `Mocha` tests
 - [ ] More demos!
