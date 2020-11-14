@@ -1,4 +1,4 @@
-import prisma from "../../core/services/db"
+import { db } from "../../core/services"
 
 /**
  * Basic Prisma abstraction for a common task.
@@ -16,7 +16,7 @@ export const storeScrape = async (
     data = JSON.stringify(data)
   }
   // Store the data.
-  prisma.scrape.create({
+  db.scrape.create({
     data: {
       url: url,
       data: data,

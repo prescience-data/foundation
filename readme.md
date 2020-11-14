@@ -33,7 +33,7 @@ $ npm run init
 ```
 #### Manual
 The automatic version essentially runs the following commands:
-```bash
+```shell script
 $ git clone https://github.com/prescience-data/foundation.git && cd ./foundation # Clone the project
 $ npm run update  # Updates the package.json file dependencies to latest versions
 $ npm install --loglevel=error # Installs dependencies
@@ -61,7 +61,9 @@ $ npm run bot # Builds the app and runs your entrypoint file
 
 ### 🛠 Config
 
-> `/src/config.ts` & `/.env`
+> `core/config.ts`
+
+> `.env`
 
 The project uses a `.env` in the root to define most of the common environment variables, but you can call these from a database etc if you prefer. 
 
@@ -69,7 +71,7 @@ The main Puppeteer `LaunchOptions` are defined in the `config.ts` file.
 
 ### 🤖 Bot
 
-> `/src/bot.ts`
+> `app/bot.ts`
 
 Main self-executing function entry-point. 
 
@@ -83,7 +85,7 @@ $ npm run bot
 
 ### ⚙ Business Logic
 
-> `/src/modules/<name>.ts`
+> `app/modules/<name>.ts`
 
 Your bot logic should be defined in clear logical scopes within the `src/modules` folder. It's best to keep things neat and abstracted from the start to avoid huge, confusing, single-file blobs as your bot grows.
 
@@ -100,28 +102,21 @@ Long-term, you'll want to develop your own internal tests by de-obfuscating the 
 You can use the existing detection tests provided, or build your own using the basic template provided.
 
 #### Example
-```ts
-export const pixelscan = async (page: Page): Promise<Record<string, any>> => {
+```typescript
+export const PixelScan: PageLogic = async (page: Page): Promise<Record<string, any>> => {
   // Load the test page.  
   await page.goto("https://pixelscan.net", { waitUntil: "networkidle2" })
   await page.waitForTimeout(1500)
   // Extract the result element text.
   const element = await page.$("#consistency h1")
   if (!element) {
-    throw new Error(`Could not find result element.`)
+    throw new ElementNotFoundError(`Heading Tag`, element)
   }
   const result = (
     await page.evaluate((element) => element.textContent, element)
   ).replace(/\s/g, " ").trim()
   // Notify and return result.
-  if (result) {
-    logger.info(chalk.green(`Success! Retrieved test page.`))
-    logger.info(result)
-    return { result: result }
-  } else {
-    logger.error(chalk.red(`Failed! No results were found.`))
-    return {}
-  }
+  return { result: result }
 }
 ```
 
@@ -143,14 +138,14 @@ $ npm run tests -- --page=sannysoft
 
 ### 🧰 Utils
 
-> `/src/utils.ts`
+> `core/utils.ts`
 
 - **rand(min: number, max: number, precision?: number)** Returns a random number from a range.
 - **delay(min: number, max: number)** Shortcuts the rand method to return a options-ready object.
 
 ### 🖥 Browsers
 
-> `/src/browsers/<browser>.ts`
+> `core/browsers/<browser>.ts`
 
 - **Chrome** Using executable path and [Stealth](https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth) plugin.
 - **MultiLogin** http://docs.multilogin.com/l/en/article/tkhr0ky2s6-puppeteer-browser-automation
@@ -159,21 +154,21 @@ $ npm run tests -- --page=sannysoft
 
 #### Examples
 ##### Chrome
-```ts
+```typescript
   // Using Chrome via the executable.
   import Chrome from "./browsers" 
   const browser: Browser = await Chrome() 
   const page: Page = await browser.newPage()
 ```
 ##### MultiLogin
-```ts
+```typescript
   // Using MultiLogin with a profile id.
   import MultiLogin from "./browsers" 
   const browser: Browser = await MultiLogin({ profileId: "fa3347ae-da62-4013-bcca-ef30825c9311"}) 
   const page: Page = await browser.newPage()
 ```
 ##### Browserless
-```ts
+```typescript
   // Using Browserless with an api token.
   import Browserless from "./browsers" 
   const browser: Browser = await Browserless(env.BROWSERLESS_TOKEN) 
@@ -182,14 +177,15 @@ $ npm run tests -- --page=sannysoft
 
 ### 💾 Storage
 
-> `/storage/profiles/<uuid>`
+> `storage/profiles/<uuid>`
 
 Local storage folder for switching Chrome profiles.
 
 ### 📦 Database
 
-> `/src/services/db.ts`
-> `/prisma/schema.prisma`
+> `core/services/db.ts`
+
+> `prisma/schema.prisma`
 
 Uses the fantastic [Prisma](https://www.prisma.io) database abstraction library with a simple `sqlite` database, but this can easily be configured for any local or remote RDBS or keystore database.
 
@@ -204,8 +200,8 @@ $ npm run db:generate # Generates fresh prisma files
 ```
 
 #### Example
-```ts
-import db from "./services/db"
+```typescript
+import { db } from "../core/services"
 ;(async () => {
 
 // Bot execution code...
@@ -223,9 +219,37 @@ if (result) {
 })()
 ```
 
+Additionally, you can build out shortcut methods in the `database` folder to DRY out common database transactions.
+
+```typescript
+/**
+ * Basic Prisma abstraction for a common task.
+ *
+ * @param {string} url
+ * @param {string} data
+ * @return {Promise<void>}
+ */
+export const storeScrape = async (
+  url: string,
+  data: string | Record<string, any>
+): Promise<void> => {
+  // Flatten any objects passed in.
+  if (typeof data !== "string") {
+    data = JSON.stringify(data)
+  }
+  // Store the data.
+  db.scrape.create({
+    data: {
+      url: url,
+      data: data,
+    },
+  })
+}
+```
+
 ### 📃 Logging
 
-> `src/services/logger.ts`
+> `core/services/logger.ts`
 
 Uses [Winston](https://github.com/winstonjs/winston) to handle logging and output. Can but configured to transport to console, file, or third-party transport like `Google Cloud Logging` (provided).
 
