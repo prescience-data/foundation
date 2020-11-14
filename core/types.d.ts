@@ -6,5 +6,5 @@ export type PrismaClient = BasePrismaClient
 
 export type ScrapeResult = {
   url: string
-  html: string
+  data: string | Record<string, any>
 }

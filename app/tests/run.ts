@@ -1,9 +1,10 @@
 import { Browser, Page } from "puppeteer"
 import { argv } from "yargs"
 
-import Chrome from "../browsers/chrome"
-import logger from "../services/logger"
-import tests from "./index"
+import { Chrome } from "../../core/browsers"
+import { log } from "../../core/services"
+import coreTests from "../../core/tests"
+import myTests from "./index"
 
 ;(async () => {
   /**
@@ -18,26 +19,35 @@ import tests from "./index"
   // Now lets resolve a page instance.
   const page: Page = await browser.newPage()
 
+  // Get the  cli args.
   const test = `${argv.page}`
 
-  // Run the selected tests, fallback to SannySoft.
+  // Run the selected coreTests, fallback to SannySoft.
   switch (test) {
+    case "fingerprintjs":
+      await coreTests.FingerprintJsTest(page)
+      break
+    case "datadome":
+      await coreTests.DataDomeTest(page)
+      break
+    case "headless":
+      await coreTests.HeadlessTest(page)
+      break
     case "pixelscan":
-      await tests.pixelscan(page)
+      await coreTests.PixelScanTest(page)
       break
     case "recaptcha":
-      await tests.recaptcha(page)
-      break
-    case "fingerprintjs":
-      await tests.fingerprintjs(page)
+      await coreTests.ReCaptchaTest(page)
       break
     case "sannysoft":
+      await coreTests.SannySoftTest(page)
+      break
     default:
-      await tests.sannysoft(page)
+      await myTests.DemoTest(page)
   }
 
   // Notify user of completion.
-  logger.info(`Test completed, closing browser.`)
+  log.info(`Test completed, closing browser.`)
 
   // Clean up before exit.
   await browser.close()

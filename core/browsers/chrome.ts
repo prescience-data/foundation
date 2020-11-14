@@ -3,7 +3,7 @@ import puppeteer from "puppeteer-extra"
 import stealth from "puppeteer-extra-plugin-stealth"
 import merge from "ts-deepmerge"
 
-import logger from "../services/logger"
+import { log } from "../services"
 import { options } from "./config"
 
 /**
@@ -18,7 +18,7 @@ export const ChromeBrowser = async (
   // Before we start, let's enable the Stealth plugin.
   puppeteer.use(stealth())
   // Inform user of launch settings.
-  logger.info(`Launching Chrome executable ${mergedOptions.executablePath}`)
+  log.info(`Launching Chrome executable ${mergedOptions.executablePath}`)
   // Launch a new Chrome browser from settings.
   return await puppeteer.launch(mergedOptions)
 }

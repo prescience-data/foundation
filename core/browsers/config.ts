@@ -2,8 +2,7 @@ import { resolve } from "app-root-path"
 import { LaunchOptions } from "puppeteer"
 import merge from "ts-deepmerge"
 
-import env from "../services/env"
-import logger from "../services/logger"
+import { env, log } from "../services"
 
 /**
  * Default screen size.
@@ -31,7 +30,7 @@ export const getBrowserExecutablePath = (
     | "Alpine"
     | string
 ): string => {
-  logger.info(`Getting Chrome's executable path for ${os}`)
+  log.info(`Getting Chrome's executable path for ${os}`)
   os = os ? os : env.OS
   if (!os) {
     if (env.BROWSER_EXEC_PATH) {

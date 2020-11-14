@@ -2,8 +2,7 @@ import { Browser } from "puppeteer"
 import puppeteer from "puppeteer-extra"
 import stealth from "puppeteer-extra-plugin-stealth"
 
-import env from "../services/env"
-import logger from "../services/logger"
+import { env, log } from "../services"
 
 /**
  * Connects to a Browserless websocket.
@@ -20,7 +19,7 @@ export const BrowserlessBrowser = async (token?: string): Promise<Browser> => {
   // Generate a value websocket url string.
   const endpoint = getBrowserlessWebSocket(token)
   // Inform user of launch settings.
-  logger.info(`Connecting to Browserless endpoint ${endpoint}`)
+  log.info(`Connecting to Browserless endpoint ${endpoint}`)
   // Connect to a running browser.
   return await puppeteer.connect({
     browserWSEndpoint: endpoint,

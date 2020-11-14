@@ -2,7 +2,7 @@ import { Browser } from "puppeteer"
 import puppeteer from "puppeteer-extra"
 import stealth from "puppeteer-extra-plugin-stealth"
 
-import logger from "../services/logger"
+import { log } from "../services"
 import { Settings } from "./types"
 
 /**
@@ -20,7 +20,7 @@ export const IncognitionBrowser = async (
   // Tip: You will need to heavily configure Stealth's settings to avoid override your Incognition settings.
   puppeteer.use(stealth())
   // Inform user of launch settings.
-  logger.info(`Connecting to Incognition on ${settings.port || 35000}`)
+  log.info(`Connecting to Incognition on ${settings.port || 35000}`)
   // Connect to a running browser.
   return await puppeteer.connect({
     browserWSEndpoint: await getIncognitionWebSocket(settings),

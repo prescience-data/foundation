@@ -51,9 +51,9 @@ const options: winston.LoggerOptions = {
  * Create logger instance.
  * @type {winston.Logger}
  */
-export const logger: winston.Logger = winston.createLogger(options)
+export const log: winston.Logger = winston.createLogger(options)
 
 /**
  * Export default module.
  */
-export default logger
+export default log

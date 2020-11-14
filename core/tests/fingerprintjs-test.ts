@@ -1,23 +1,26 @@
 import chalk from "chalk"
 import { Page } from "puppeteer"
 
-import { ElementNotFoundError } from "../errors/scrapes"
-import logger from "../services/logger"
+import { ElementNotFoundError } from "../errors"
+import { log } from "../services"
+import { PageLogic } from "../types"
 import { whitespace } from "../utils"
 
 /**
  * Tests the FingerprintJS Pro product demo.
  *
+ * @see https://fingerprintjs.com/demo
  * @param {Page} page
  * @param {number} delay
  * @return {Promise<Record<string, any>>}
+ * @constructor
  */
-export const fingerprintjs = async (
+export const FingerprintJsTest: PageLogic = async (
   page: Page,
-  delay = 4000
+  delay = 3000
 ): Promise<Record<string, any>> => {
   // Load the test page.
-  logger.info(`Loading fingerprintjs.com demo test...`)
+  log.info(`Loading fingerprintjs.com demo test...`)
   await page.goto("https://fingerprintjs.com/demo", {
     waitUntil: "networkidle2",
   })
@@ -36,13 +39,13 @@ export const fingerprintjs = async (
 
   // Notify and return result.
   if (result) {
-    logger.info(chalk.green(`Success! Retrieved test page.`))
-    logger.info(result)
+    log.info(chalk.green(`Success! Retrieved test page.`))
+    log.info(result)
     return { result: result }
   } else {
-    logger.error(chalk.red(`Failed! No results were found.`))
+    log.error(chalk.red(`Failed! No results were found.`))
     return {}
   }
 }
 
-export default fingerprintjs
+export default FingerprintJsTest

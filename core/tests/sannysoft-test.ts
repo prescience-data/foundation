@@ -1,14 +1,14 @@
 import chalk from "chalk"
 import { Page } from "puppeteer"
 
-import logger from "../services/logger"
+import { log } from "../services"
+import { PageLogic } from "../types"
 
 /**
  * Page function to extract result from SannySoft tables.
- *
  * @return {any}
  */
-const extractResultsFromPage = () => {
+const extractResultsFromPage = (): Record<string, any> => {
   // Setup local variables.
   const results: any = []
   let rows: any
@@ -46,28 +46,34 @@ const extractResultsFromPage = () => {
 /**
  * Extracts and displays the test result from SannySoft.
  *
+ * @see https://bot.sannysoft.com
  * @param {Page} page
- * @return {Promise<string>}
+ * @param {number} delay
+ * @return {Promise<Record<string, any>>}
+ * @constructor
  */
-export const sannysoft = async (page: Page): Promise<Record<string, any>> => {
+export const SannysoftTest: PageLogic = async (
+  page: Page,
+  delay = 5000
+): Promise<Record<string, any>> => {
   // Load the test page.
-  logger.info(`Loading the bot.sannysoft.com test page...`)
+  log.info(`Loading the bot.sannysoft.com test page...`)
   await page.goto("https://bot.sannysoft.com", {
     waitUntil: "networkidle2",
   })
   // Wait for the on page tests to run.
-  await page.waitForTimeout(5000)
+  await page.waitForTimeout(delay)
   // Extract test results from page.
   const result = await page.evaluate(extractResultsFromPage)
   // Notify and return result.
   if (result) {
-    logger.info(chalk.green(`Success! Retrieved test page.`))
+    log.info(chalk.green(`Success! Retrieved test page.`))
     console.log({ result: result })
     return result
   } else {
-    logger.error(chalk.red(`Failed! Heading text was empty.`))
+    log.error(chalk.red(`Failed! Heading text was empty.`))
     return {}
   }
 }
 
-export default sannysoft
+export default SannysoftTest

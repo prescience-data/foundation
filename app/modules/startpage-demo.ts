@@ -1,10 +1,10 @@
 import chalk from "chalk"
 import { ElementHandle, Page } from "puppeteer"
 
-import { ElementNotFoundError, ScrapeFailedError } from "../errors/scrapes"
-import logger from "../services/logger"
-import { ScrapeResult } from "../types"
-import { delay } from "../utils"
+import { ElementNotFoundError, ScrapeFailedError } from "../../core/errors"
+import { log } from "../../core/services"
+import { PageLogic, ScrapeResult } from "../../core/types"
+import { delay } from "../../core/utils"
 
 /**
  * Extracts the heading from the Privacy Policy page of `startpage.com`.
@@ -12,16 +12,18 @@ import { delay } from "../utils"
  * @param {Page} page
  * @return {Promise<string>}
  */
-export const getPrivacyPolicyHeadingText = async (
+export const getPrivacyPolicyHeadingText: PageLogic = async (
   page: Page
 ): Promise<ScrapeResult> => {
+  // Define the final target url.
   const targetUrl = "https://www.startpage.com/en/privacy-policy/"
+
   // As a short demo, let's visit a website.
-  logger.info(`Loading the startpage.com website as a demo...`)
+  log.info(`Loading the startpage.com website as a demo...`)
   await page.goto("https://www.startpage.com/", { waitUntil: "networkidle2" })
 
   // Find privacy policy link and click.
-  logger.info(`Searching for the privacy policy link.`)
+  log.info(`Searching for the privacy policy link.`)
   const privacyPolicyElement: ElementHandle<Element> | null = await page.$(
     `div.footer-home a[href="${targetUrl}"]`
   )
@@ -50,13 +52,13 @@ export const getPrivacyPolicyHeadingText = async (
 
   // Notify and return result.
   if (heading) {
-    logger.info(chalk.green(`Success! Retrieved heading text: ${heading}`))
+    log.info(chalk.green(`Success! Retrieved heading text: ${heading}`))
     return {
-      url: "https://www.startpage.com/en/privacy-policy/",
-      html: heading,
+      url: targetUrl,
+      data: heading,
     }
   } else {
-    logger.error(chalk.red(`Failed! Heading text was empty.`))
+    log.error(chalk.red(`Failed! Heading text was empty.`))
     throw new ScrapeFailedError(targetUrl, heading)
   }
 }

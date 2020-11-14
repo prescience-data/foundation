@@ -1,10 +1,10 @@
 import { Browser, Page } from "puppeteer"
 import { argv } from "yargs"
 
-import { Chrome } from "./browsers"
+import { Chrome } from "../core/browsers"
+import { log } from "../core/services"
+import { storeScrape } from "./database/scrapes"
 import { getPrivacyPolicyHeadingText } from "./modules/startpage-demo"
-import { storeScrape } from "./services/db"
-import logger from "./services/logger"
 
 ;(async () => {
   /**
@@ -29,7 +29,7 @@ import logger from "./services/logger"
    */
   switch (command) {
     case "foobar":
-      logger.error(`You haven't build this command yet!`)
+      log.error(`You haven't build this command yet!`)
       break
     case "demo":
     default:
@@ -37,7 +37,7 @@ import logger from "./services/logger"
       const result = await getPrivacyPolicyHeadingText(page)
       // If a result was returned, store it in the database.
       if (result) {
-        logger.info(`Saving result to database.`)
+        log.info(`Saving result to database.`)
         await storeScrape(result.url, result.html)
       }
   }

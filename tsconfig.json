@@ -11,12 +11,12 @@
 	"sourceMap":                    true,
 	"allowSyntheticDefaultImports": true,
 	"outDir":                       "build",
-	"baseUrl":                      "src",
+	"baseUrl":                      "app",
 	"resolveJsonModule":            true,
 	"strict":                       true
   },
   "include":         [
-	"src/**/*"
+	"app/**/*"
   ],
   "exclude":         [
 	"node_modules",
@@ -24,7 +24,7 @@
 	"dist",
 	"build",
 	"vendor",
-	"src/**/*.spec.tsx",
-	"src/**/*.spec.ts"
+	"app/**/*.spec.tsx",
+	"app/**/*.spec.ts"
   ]
 }

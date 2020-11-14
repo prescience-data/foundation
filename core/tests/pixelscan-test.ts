@@ -1,21 +1,28 @@
 import chalk from "chalk"
 import { Page } from "puppeteer"
 
-import { ElementNotFoundError } from "../errors/scrapes"
-import logger from "../services/logger"
+import { ElementNotFoundError } from "../errors"
+import { log } from "../services"
+import { PageLogic } from "../types"
 import { whitespace } from "../utils"
 
 /**
  * Test PixelScan page.
  *
+ * @see https://pixelscan.net
  * @param {Page} page
- * @return {Promise<string>}
+ * @param {number} delay
+ * @return {Promise<Record<string, any>>}
+ * @constructor
  */
-export const pixelscan = async (page: Page): Promise<Record<string, any>> => {
+export const PixelScanTest: PageLogic = async (
+  page: Page,
+  delay = 2000
+): Promise<Record<string, any>> => {
   // Load the test page.
-  logger.info(`Loading pixelscan.net test...`)
+  log.info(`Loading pixelscan.net test...`)
   await page.goto("https://pixelscan.net", { waitUntil: "networkidle2" })
-  await page.waitForTimeout(1500)
+  await page.waitForTimeout(delay)
   // Extract the result element text.
   const element = await page.$("#consistency h1")
   if (!element) {
@@ -27,13 +34,13 @@ export const pixelscan = async (page: Page): Promise<Record<string, any>> => {
   )
   // Notify and return result.
   if (result) {
-    logger.info(chalk.green(`Success! Retrieved test page.`))
-    logger.info(result)
+    log.info(chalk.green(`Success! Retrieved test page.`))
+    log.info(result)
     return { result: result }
   } else {
-    logger.error(chalk.red(`Failed! No results were found.`))
+    log.error(chalk.red(`Failed! No results were found.`))
     return {}
   }
 }
 
-export default pixelscan
+export default PixelScanTest
