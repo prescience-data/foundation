@@ -3,6 +3,7 @@ import puppeteer from "puppeteer-extra"
 import stealth from "puppeteer-extra-plugin-stealth"
 
 import { env, log } from "../services"
+import { BrowserLauncher } from "./types"
 
 /**
  * Connects to a Browserless websocket.
@@ -13,7 +14,9 @@ import { env, log } from "../services"
  * @return {Promise<Browser>}
  * @constructor
  */
-export const BrowserlessBrowser = async (token?: string): Promise<Browser> => {
+export const BrowserlessBrowser: BrowserLauncher = async (
+  token?: string
+): Promise<Browser> => {
   // Install the Stealth plugin.
   puppeteer.use(stealth())
   // Generate a value websocket url string.

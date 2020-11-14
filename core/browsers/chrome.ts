@@ -5,13 +5,13 @@ import merge from "ts-deepmerge"
 
 import { log } from "../services"
 import { getLaunchOptions } from "./config"
-import { ExecutablePaths } from "./types"
+import { BrowserLauncher, ExecutablePaths } from "./types"
 
 /**
  * Provides a Chrome browser based on the users settings.
  * @return {Promise<Browser>}
  */
-export const ChromeBrowser = async (
+export const ChromeBrowser: BrowserLauncher = async (
   launchOptions: LaunchOptions = {}
 ): Promise<Browser> => {
   // Inform user of browser type.

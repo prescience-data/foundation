@@ -1,8 +1,8 @@
 import chalk from "chalk"
-import { Browser, Page } from "puppeteer"
+import { Page } from "puppeteer"
 import { argv } from "yargs"
 
-import { Chrome, Edge } from "../../core/browsers"
+import { BrowserLauncher } from "../../core/browsers"
 import { ElementNotFoundError } from "../../core/errors"
 import { log } from "../../core/services"
 import coreTests from "../../core/tests"
@@ -14,11 +14,9 @@ import myTests from "./index"
    * Configuration should occur within your .env file or manually in the config.ts file.
    * See the browsers folder for additional browsers.
    */
-
-  // Launch a Chrome browser based on our options.
-  // const browser: Browser = await Chrome()
-  const browser: Browser = await Edge()
-
+  const browser = await BrowserLauncher(
+    argv.browser ? `${argv.browser}` : "Chrome"
+  )()
   // Now lets resolve a page instance.
   const page: Page = await browser.newPage()
 

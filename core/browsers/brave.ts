@@ -5,13 +5,13 @@ import merge from "ts-deepmerge"
 
 import { log } from "../services"
 import { getLaunchOptions } from "./config"
-import { ExecutablePaths } from "./types"
+import { BrowserLauncher, ExecutablePaths } from "./types"
 
 /**
  * Provides a Brave browser based on the users settings.
  * @return {Promise<Browser>}
  */
-export const BraveBrowser = async (
+export const BraveBrowser: BrowserLauncher = async (
   launchOptions: LaunchOptions = {}
 ): Promise<Browser> => {
   // Inform user of browser type.

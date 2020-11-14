@@ -339,3 +339,4 @@ The project comes preconfigured with the following tooling to keep your code nea
 - [ ] Add `ghost-cursor` to demo
 - [ ] Apply optional world isolation
 - [ ] Add emojis to logger
+- [ ] Migrate css selectors to xpath

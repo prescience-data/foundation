@@ -5,17 +5,17 @@ import merge from "ts-deepmerge"
 
 import { log } from "../services"
 import { getLaunchOptions } from "./config"
-import { ExecutablePaths } from "./types"
+import { BrowserLauncher, ExecutablePaths } from "./types"
 
 /**
- * Provides a Brave browser based on the users settings.
+ * Provides a Edge browser based on the users settings.
  * @return {Promise<Browser>}
  */
-export const EdgeBrowser = async (
+export const EdgeBrowser: BrowserLauncher = async (
   launchOptions: LaunchOptions = {}
 ): Promise<Browser> => {
   // Inform user of browser type.
-  log.info(`Booting a new Brave browser.`)
+  log.info(`Booting a new Edge browser.`)
   // Merge any overrides provided.
   const defaultOptions: LaunchOptions = getLaunchOptions("Edge")
   const mergedOptions: LaunchOptions = merge(defaultOptions, launchOptions)

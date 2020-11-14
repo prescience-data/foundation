@@ -5,7 +5,7 @@ import puppeteer from "puppeteer-extra"
 import stealth from "puppeteer-extra-plugin-stealth"
 
 import { log } from "../services"
-import { Settings } from "./types"
+import { BrowserLauncher, Settings } from "./types"
 
 /**
  * Provides a MultiLogin browser instance.
@@ -15,7 +15,7 @@ import { Settings } from "./types"
  * @param {Settings} settings
  * @return {Promise<Browser>}
  */
-export const MultiLoginBrowser = async (
+export const MultiLoginBrowser: BrowserLauncher = async (
   settings: Settings
 ): Promise<Browser> => {
   // Tip: You will need to heavily configure Stealth's settings to avoid override your MultiLogin settings.
