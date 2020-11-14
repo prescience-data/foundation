@@ -157,6 +157,49 @@ $ npm run tests -- --page=sannysoft
 - **Incognition** https://incogniton.com/knowledge%20center/selenium-browser-automation
 
 
+#### Examples
+```ts
+  // Using Chrome via the executable.
+  import Chrome from "./browsers/chrome"
+  // Launch a Chrome browser based on our options.
+  const browser: Browser = await Chrome()
+  // Now lets resolve a page instance.
+  const page: Page = await browser.newPage()
+```
+
+```ts
+  // Using MultiLogin with a profile id.
+  import MultiLogin from "./browsers/multilogin"
+  // Connect to a running MLA browser and provide the desired profile id.
+  const browser: Browser = await MultiLogin({ profileId: "fa3347ae-da62-4013-bcca-ef30825c9311"})
+  // Now lets resolve a page instance.
+  const page: Page = await browser.newPage()
+```
+
+export const pixelscan = async (page: Page): Promise<Record<string, any>> => {
+  // Load the test page.  
+  await page.goto("https://pixelscan.net", { waitUntil: "networkidle2" })
+  await page.waitForTimeout(1500)
+  // Extract the result element text.
+  const element = await page.$("#consistency h1")
+  if (!element) {
+    throw new Error(`Could not find result element.`)
+  }
+  const result = (
+    await page.evaluate((element) => element.textContent, element)
+  ).replace(/\s/g, " ").trim()
+  // Notify and return result.
+  if (result) {
+    logger.info(chalk.green(`Success! Retrieved test page.`))
+    logger.info(result)
+    return { result: result }
+  } else {
+    logger.error(chalk.red(`Failed! No results were found.`))
+    return {}
+  }
+}
+```
+
 ### 💾 Storage
 
 > `/storage/profiles/<uuid>`
