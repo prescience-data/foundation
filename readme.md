@@ -81,12 +81,35 @@ The main Puppeteer `LaunchOptions` are defined in the `config.ts` file.
 
 Main self-executing function entry-point. 
 
-This is where you execute each part of your scoped logic from the `modules` section cleanly.
+This is where you execute each part of your scoped logic from the `modules` section cleanly. Make some magic happen 🧙✨...
+
+<img alt="Evil plan" src="https://media1.tenor.com/images/639cc3c3ea7d5e1b757683ef6d071b5e/tenor.gif" width="350" />
+
 
 You call this module from the cli with:
 
 ```shell script
 $ npm run bot
+```
+
+Or if you start to add cli arguments:
+
+```shell script
+$ npm run bot -- --command=<CommandName>
+```
+
+Or if you prefer to shortcut your cli further you can add to your `package.json` scripts:
+
+```json
+{
+  "scripts": {
+    "bot:moon-prism-power": "npm run bot -- --command=moon-prism-power"
+  }
+}
+```
+
+```shell script
+$ npm run bot:moon-prism-power ✨✨✨✨
 ```
 
 ### ⚙ Business Logic
