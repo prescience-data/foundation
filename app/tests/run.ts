@@ -1,11 +1,11 @@
-import chalk from "chalk"
 import { Page } from "puppeteer"
 import { argv } from "yargs"
 
 import { BrowserLauncher } from "../../core/browsers"
-import { ElementNotFoundError } from "../../core/errors"
 import { log } from "../../core/services"
+import { banner } from "../../core/services/log"
 import coreTests from "../../core/tests"
+import { ErrorHandler } from "../errors/hander"
 import myTests from "./index"
 
 ;(async () => {
@@ -14,15 +14,18 @@ import myTests from "./index"
    * Configuration should occur within your .env file or manually in the config.ts file.
    * See the browsers folder for additional browsers.
    */
-  const browser = await BrowserLauncher(
-    argv.browser ? `${argv.browser}` : "Chrome"
-  )()
-  // Now lets resolve a page instance.
-  const page: Page = await browser.newPage()
-
-  // Get the  cli args.
-  const test = `${argv.page}`
   try {
+    banner()
+
+    const browser = await BrowserLauncher(
+      argv.browser ? `${argv.browser}` : "Chrome"
+    )()
+    // Now lets resolve a page instance.
+    const page: Page = await browser.newPage()
+
+    // Get the  cli args.
+    const test = `${argv.page}`
+
     // Run the selected tests, fallback to the demo test.
     switch (test) {
       case "fingerprintjs":
@@ -50,19 +53,13 @@ import myTests from "./index"
 
     // Notify user of completion.
     log.info(`Test completed, closing browser.`)
+
+    // Clean up before exit.
+    await browser.close()
   } catch (err) {
     // Notify of any critical errors.
-    if (err instanceof ElementNotFoundError) {
-      log.error(chalk.red(`Test failed due to a missing element on page.`))
-    } else {
-      log.error(
-        chalk.bgRed.white(`Encountered an unexpected error while running test.`)
-      )
-    }
-    log.error(err.message)
+    ErrorHandler(err)
   }
-  // Clean up before exit.
-  await browser.close()
 
   // Complete!
 })().then(() => {

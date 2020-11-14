@@ -43,6 +43,7 @@
     "chalk": "^4.1.0",
     "dotenv": "^8.2.0",
     "ghost-cursor": "^1.0.6",
+    "node-emoji": "^1.10.0",
     "puppeteer": "^5.4.1",
     "puppeteer-extra": "^3.1.15",
     "puppeteer-extra-plugin-stealth": "^2.6.5",

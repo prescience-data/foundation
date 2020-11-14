@@ -1,11 +1,10 @@
-import chalk from "chalk"
 import { Browser, Page } from "puppeteer"
 import { argv } from "yargs"
 
 import { Chrome } from "../core/browsers"
-import { ElementNotFoundError, ScrapeFailedError } from "../core/errors"
 import { log } from "../core/services"
 import { storeScrape } from "./database/scrapes"
+import { ErrorHandler } from "./errors/hander"
 import { getPrivacyPolicyHeadingText } from "./modules/startpage-demo"
 
 ;(async () => {
@@ -46,16 +45,7 @@ import { getPrivacyPolicyHeadingText } from "./modules/startpage-demo"
     }
   } catch (err) {
     // Notify of any critical errors. Note that because we typed our errors, we can see what caused it.
-    if (err instanceof ElementNotFoundError) {
-      log.error(chalk.red(`Test failed due to a missing element on page.`))
-    } else if (err instanceof ScrapeFailedError) {
-      log.error(chalk.red(`Scrape failed due to missing target output.`))
-    } else {
-      log.error(
-        chalk.bgRed.white(`Encountered an unexpected error while running test.`)
-      )
-    }
-    log.error(err.message)
+    ErrorHandler(err)
   }
 
   // Clean up before exit.

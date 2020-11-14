@@ -7,7 +7,7 @@ import { env, log } from "../services"
 import { braveExecutablePaths } from "./brave"
 import { chromeExecutablePaths } from "./chrome"
 import { edgeExecutablePaths } from "./edge"
-import { ExecutablePaths } from "./types"
+import { ExecutablePaths, OSList } from "./types"
 
 /**
  * Default screen size.
@@ -27,16 +27,7 @@ export const defaultViewport = {
  */
 export const getBrowserExecutablePath = (
   browser: "Chrome" | "Brave" | "Edge" = "Chrome",
-  os?:
-    | "Mac"
-    | "OSX"
-    | "Darwin"
-    | "Windows"
-    | "Windows_NT"
-    | "Linux"
-    | "Ubuntu"
-    | "Alpine"
-    | string
+  os?: OSList | string
 ): string => {
   os = os ? os : `${env.OS}`
   log.info(`Getting ${browser}'s executable path for ${os}`)
