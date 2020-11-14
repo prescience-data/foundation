@@ -155,24 +155,28 @@ $ npm run tests -- --page=sannysoft
 - **Chrome** Using executable path and [Stealth](https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth) plugin.
 - **MultiLogin** http://docs.multilogin.com/l/en/article/tkhr0ky2s6-puppeteer-browser-automation
 - **Incognition** https://incogniton.com/knowledge%20center/selenium-browser-automation
-
+- **Browserless** https://docs.browserless.io/
 
 #### Examples
+##### Chrome
 ```ts
   // Using Chrome via the executable.
-  import Chrome from "./browsers/chrome"
-  // Launch a Chrome browser based on our options.
-  const browser: Browser = await Chrome()
-  // Now lets resolve a page instance.
+  import Chrome from "./browsers" 
+  const browser: Browser = await Chrome() 
   const page: Page = await browser.newPage()
 ```
-
+##### MultiLogin
 ```ts
   // Using MultiLogin with a profile id.
-  import MultiLogin from "./browsers/multilogin"
-  // Connect to a running MLA browser and provide the desired profile id.
-  const browser: Browser = await MultiLogin({ profileId: "fa3347ae-da62-4013-bcca-ef30825c9311"})
-  // Now lets resolve a page instance.
+  import MultiLogin from "./browsers" 
+  const browser: Browser = await MultiLogin({ profileId: "fa3347ae-da62-4013-bcca-ef30825c9311"}) 
+  const page: Page = await browser.newPage()
+```
+##### Browserless
+```ts
+  // Using Browserless with an api token.
+  import Browserless from "./browsers" 
+  const browser: Browser = await Browserless(env.BROWSERLESS_TOKEN) 
   const page: Page = await browser.newPage()
 ```
 
