@@ -1,6 +1,7 @@
 import chalk from "chalk"
 import { Page } from "puppeteer"
 
+import { ElementNotFoundError } from "../errors/scrapes"
 import logger from "../services/logger"
 import { whitespace } from "../utils"
 
@@ -20,7 +21,7 @@ export const recaptcha = async (page: Page): Promise<Record<string, any>> => {
   await page.waitForTimeout(6000)
   const element = await page.$("#score")
   if (!element) {
-    throw new Error(`Could not find score element.`)
+    throw new ElementNotFoundError(`Score`, element)
   }
   const result: string = whitespace(
     await page.evaluate((element) => element.textContent, element)

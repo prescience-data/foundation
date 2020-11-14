@@ -5,6 +5,7 @@ import puppeteer from "puppeteer-extra"
 import stealth from "puppeteer-extra-plugin-stealth"
 
 import logger from "../services/logger"
+import { Settings } from "./types"
 
 /**
  * Provides a MultiLogin browser instance.
@@ -70,14 +71,6 @@ export const getMultiLoginWebSocket = (settings: Settings): Promise<string> => {
       reject(err)
     }
   })
-}
-
-/**
- * Export settings type.
- */
-export type Settings = {
-  profileId: string
-  port?: number
 }
 
 export default MultiLoginBrowser

@@ -1,7 +1,9 @@
 import chalk from "chalk"
 import { ElementHandle, Page } from "puppeteer"
 
+import { ElementNotFoundError, ScrapeFailedError } from "../errors/scrapes"
 import logger from "../services/logger"
+import { ScrapeResult } from "../types"
 import { delay } from "../utils"
 
 /**
@@ -12,7 +14,8 @@ import { delay } from "../utils"
  */
 export const getPrivacyPolicyHeadingText = async (
   page: Page
-): Promise<string> => {
+): Promise<ScrapeResult> => {
+  const targetUrl = "https://www.startpage.com/en/privacy-policy/"
   // As a short demo, let's visit a website.
   logger.info(`Loading the startpage.com website as a demo...`)
   await page.goto("https://www.startpage.com/", { waitUntil: "networkidle2" })
@@ -20,12 +23,12 @@ export const getPrivacyPolicyHeadingText = async (
   // Find privacy policy link and click.
   logger.info(`Searching for the privacy policy link.`)
   const privacyPolicyElement: ElementHandle<Element> | null = await page.$(
-    `div.footer-home a[href="https://www.startpage.com/en/privacy-policy/"]`
+    `div.footer-home a[href="${targetUrl}"]`
   )
 
   // Abort if not found.
   if (!privacyPolicyElement) {
-    throw new Error(`Could not find privacy policy link.`)
+    throw new ElementNotFoundError("Privacy Policy", privacyPolicyElement)
   }
 
   // Scroll to the element.
@@ -48,23 +51,14 @@ export const getPrivacyPolicyHeadingText = async (
   // Notify and return result.
   if (heading) {
     logger.info(chalk.green(`Success! Retrieved heading text: ${heading}`))
-    return heading
+    return {
+      url: "https://www.startpage.com/en/privacy-policy/",
+      html: heading,
+    }
   } else {
     logger.error(chalk.red(`Failed! Heading text was empty.`))
-    return ""
+    throw new ScrapeFailedError(targetUrl, heading)
   }
-}
-
-/**
- * An empty example of a different piece of logic.
- *
- * @param {Page} page
- * @return {Promise<boolean>}
- */
-export const someTruthyCheck = async (page: Page): Promise<boolean> => {
-  const element = await page.$(`div#doesNotExist`)
-
-  return !!element
 }
 
 /**
@@ -75,13 +69,40 @@ export const someTruthyCheck = async (page: Page): Promise<boolean> => {
  * @constructor
  */
 export class StartpageDemo {
+  /**
+   * Storage for scraping results.
+   *
+   * @type {ScrapeResult[]}
+   */
+  public results: ScrapeResult[] = []
+
+  /**
+   * Constructor
+   *
+   * @param {Page} page
+   */
   constructor(protected readonly page: Page) {}
 
-  async getPrivacyPolicyHeadingText(): Promise<string> {
-    return await getPrivacyPolicyHeadingText(this.page)
+  /**
+   * Perform the function then return self to allow chaining.
+   *
+   * @example await startpageDemo.getPrivacyPolicyHeadingText().hasMoreThanOneResult() => false
+   * @return {Promise<StartpageDemo>}
+   */
+  public async getPrivacyPolicyHeadingText(): Promise<StartpageDemo> {
+    const result: ScrapeResult = await getPrivacyPolicyHeadingText(this.page)
+    if (result) {
+      this.results.push(result)
+    }
+    return this
   }
 
-  async someTruthyCheck(): Promise<boolean> {
-    return await someTruthyCheck(this.page)
+  /**
+   * Random demo truthy style check.
+   *
+   * @return {boolean}
+   */
+  public hasMoreThanOneResult(): boolean {
+    return this.results.length > 1
   }
 }

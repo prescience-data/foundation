@@ -1,6 +1,7 @@
 import chalk from "chalk"
 import { Page } from "puppeteer"
 
+import { ElementNotFoundError } from "../errors/scrapes"
 import logger from "../services/logger"
 import { whitespace } from "../utils"
 
@@ -27,7 +28,7 @@ export const fingerprintjs = async (
     "table.table-compact > tbody > tr:nth-child(4) > td.miriam"
   )
   if (!element) {
-    throw new Error(`Could not find result element.`)
+    throw new ElementNotFoundError(`Results Table`, element)
   }
   const result = whitespace(
     await page.evaluate((element) => element.textContent, element)

@@ -10,7 +10,7 @@ import logger from "../services/logger"
  */
 const extractResultsFromPage = () => {
   // Setup local variables.
-  let results: any = []
+  const results: any = []
   let rows: any
   let cols: any = []
   // Query all tables.

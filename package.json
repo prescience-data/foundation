@@ -39,6 +39,7 @@
   "dependencies": {
     "@google-cloud/logging-winston": "^4.0.1",
     "@prisma/client": "^2.11.0",
+    "app-root-path": "^3.0.0",
     "chalk": "^4.1.0",
     "dotenv": "^8.2.0",
     "ghost-cursor": "^1.0.6",
@@ -56,6 +57,7 @@
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@prisma/cli": "^2.11.0",
+    "@types/app-root-path": "^1.2.4",
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.0.4",
     "@types/node": "^14.14.7",

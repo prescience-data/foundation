@@ -1,8 +1,9 @@
 import { Browser, Page } from "puppeteer"
+import { argv } from "yargs"
 
-import Chrome from "./browsers/chrome"
+import { Chrome } from "./browsers"
 import { getPrivacyPolicyHeadingText } from "./modules/startpage-demo"
-import db from "./services/db"
+import { storeScrape } from "./services/db"
 import logger from "./services/logger"
 
 ;(async () => {
@@ -18,23 +19,27 @@ import logger from "./services/logger"
   // Now lets resolve a page instance.
   const page: Page = await browser.newPage()
 
-  // Abstract your business logic to modular calls like so:
-  const result = await getPrivacyPolicyHeadingText(page)
+  // Specify an optional command via the cli: npm run bot -- --command=demo
+  const command = `${argv.command}`
+
   /**
    * Tip: If you have multi-step logic, you can provide the page to a class and run each step sequentially.
    *   const startpageDemo = new StartpageDemo(page)
    *   const result = await startpageDemo.getPrivacyPolicyHeadingText()
    */
-
-  // If a result was returned, store it in the database.
-  if (result) {
-    logger.info(`Saving result to database.`)
-    db.scrape.create({
-      data: {
-        url: "https://www.startpage.com/en/privacy-policy/",
-        html: result,
-      },
-    })
+  switch (command) {
+    case "foobar":
+      logger.error(`You haven't build this command yet!`)
+      break
+    case "demo":
+    default:
+      // Abstract your business logic to modular calls like so:
+      const result = await getPrivacyPolicyHeadingText(page)
+      // If a result was returned, store it in the database.
+      if (result) {
+        logger.info(`Saving result to database.`)
+        await storeScrape(result.url, result.html)
+      }
   }
 
   // Clean up before exit.

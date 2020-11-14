@@ -3,6 +3,7 @@ import puppeteer from "puppeteer-extra"
 import stealth from "puppeteer-extra-plugin-stealth"
 
 import logger from "../services/logger"
+import { Settings } from "./types"
 
 /**
  * Provides an Incognition browser instance.
@@ -38,14 +39,6 @@ export const getIncognitionWebSocket = async (
   return `http://localhost:${
     settings.port || 35000
   }/automation/launch/puppeteer/${settings.profileId}`
-}
-
-/**
- * Export settings type.
- */
-export type Settings = {
-  profileId: string
-  port?: number
 }
 
 export default IncognitionBrowser

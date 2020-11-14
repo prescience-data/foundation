@@ -1,6 +1,7 @@
 import chalk from "chalk"
 import { Page } from "puppeteer"
 
+import { ElementNotFoundError } from "../errors/scrapes"
 import logger from "../services/logger"
 import { whitespace } from "../utils"
 
@@ -18,7 +19,7 @@ export const pixelscan = async (page: Page): Promise<Record<string, any>> => {
   // Extract the result element text.
   const element = await page.$("#consistency h1")
   if (!element) {
-    throw new Error(`Could not find result element.`)
+    throw new ElementNotFoundError(`Consistency Tag`, element)
   }
   // Clean the text.
   const result = whitespace(

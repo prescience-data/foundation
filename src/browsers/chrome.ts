@@ -3,14 +3,14 @@ import puppeteer from "puppeteer-extra"
 import stealth from "puppeteer-extra-plugin-stealth"
 import merge from "ts-deepmerge"
 
-import { options } from "../config"
 import logger from "../services/logger"
+import { options } from "./config"
 
 /**
  * Provides a chrome browser based on the users settings.
  * @return {Promise<Browser>}
  */
-export const Chrome = async (
+export const ChromeBrowser = async (
   launchOptions: LaunchOptions = {}
 ): Promise<Browser> => {
   // Merge any overrides provided.
@@ -23,4 +23,4 @@ export const Chrome = async (
   return await puppeteer.launch(mergedOptions)
 }
 
-export default Chrome
+export default ChromeBrowser

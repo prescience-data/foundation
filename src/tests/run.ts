@@ -18,7 +18,7 @@ import tests from "./index"
   // Now lets resolve a page instance.
   const page: Page = await browser.newPage()
 
-  const test: string = `${argv.page}`
+  const test = `${argv.page}`
 
   // Run the selected tests, fallback to SannySoft.
   switch (test) {
