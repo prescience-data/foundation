@@ -8,7 +8,7 @@
 
 It uses the (in)famous [Puppeteer-Extra](https://github.com/berstend/puppeteer-extra) package as the primary Puppeteer driver to enable its library of `Stealth` plugins and evasions.
 
-> 👋 PS: If you're working on botting and looking for a great developer community, check out the Puppeteer-Extra discord server: https://discord.gg/vz7PeKk 
+> 👋 PS: If you're working on botting and looking for a great developer community, check out the `Puppeteer-Extra` Discord server: https://discord.gg/vz7PeKk 
 
 It does not wrap existing libraries or attempt to "add" much that doesn't already exist, but starting a new project with an unfamiliar library can come with a lot of questions around project structure and tooling.
 
@@ -22,16 +22,16 @@ If you're new to both modern JavaScript (`ES6` & `TypeScript`) _and_ `Puppeteer`
 ## Installation
 
 > ⚠ Note for Windows users:
-> This project does not include cross-env, so using [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Terminal Preview](https://www.microsoft.com/en-au/p/windows-terminal-preview/9n8g5rfz9xk3?rtc=1) is basically required. 
+> This project does not include `cross-env`, so using [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Terminal Preview](https://www.microsoft.com/en-au/p/windows-terminal-preview/9n8g5rfz9xk3?rtc=1) is basically required. 
 
 ### 🎬 Download and init
 
-##### Automatic
+#### Automatic
 ```shell script
 $ git clone https://github.com/prescience-data/foundation.git && cd ./foundation # Clone the project
 $ npm run init
 ```
-##### Manual
+#### Manual
 The automatic version essentially runs the following commands:
 ```bash
 $ git clone https://github.com/prescience-data/foundation.git && cd ./foundation # Clone the project
@@ -44,12 +44,12 @@ $ npm run build:clean # Build the TypeScript code
 ### 👨‍🔧 Configure
 Edit the `.env` to your liking and add any services like `Google Cloud Logging` etc.
 
-> Note: Remember to .gitignore your .env file before committing to any public repositories.
+> ⚠ Remember to .gitignore your .env file before committing to any public repositories.
 
 ### ⛷ Build / Run
 The project is [TypeScript](https://www.typescriptlang.org) so there are a few commands provided for this.
 
-```bash
+```shell script
 $ npm run build:clean # Just build the TypeScript files
 # Or...
 $ npm run bot # Builds the app and runs your entrypoint file
@@ -61,7 +61,7 @@ $ npm run bot # Builds the app and runs your entrypoint file
 
 ### 🛠 Config
 
-> /src/config.ts & /.env
+> `/src/config.ts` & `/.env`
 
 The project uses a `.env` in the root to define most of the common environment variables, but you can call these from a database etc if you prefer. 
 
@@ -69,7 +69,7 @@ The main Puppeteer `LaunchOptions` are defined in the `config.ts` file.
 
 ### 🤖 Bot
 
-> /src/bot.ts
+> `/src/bot.ts`
 
 Main self-executing function entry-point. 
 
@@ -83,7 +83,7 @@ $ npm run bot
 
 ### ⚙ Business Logic
 
-> /src/modules/<name>.ts 
+> `/src/modules/<name>.ts`
 
 Your bot logic should be defined in clear logical scopes within the `src/modules` folder. It's best to keep things neat and abstracted from the start to avoid huge, confusing, single-file blobs as your bot grows.
 
@@ -99,7 +99,7 @@ Long-term, you'll want to develop your own internal tests by de-obfuscating the 
 
 You can use the existing detection tests provided, or build your own using the basic template provided.
 
-##### Example
+#### Example
 ```ts
 export const pixelscan = async (page: Page): Promise<Record<string, any>> => {
   // Load the test page.  
@@ -129,13 +129,13 @@ export const pixelscan = async (page: Page): Promise<Record<string, any>> => {
 
 <img alt="Very sneaky, sir." src="https://media1.tenor.com/images/1a1848dfc49207af73a827a63d37d244/tenor.gif" width="350" />
 
-##### Running Detection Tests
+#### Running Detection Tests
 To run your tests, use the command:
 ```shell script
 $ npm run tests -- --page=sannysoft
 ```
 
-##### Available Tests
+#### Available Tests
 - [**SannySoft**](https://bot.sannysoft.com) `--page=sannysoft`
 - [**ReCAPTCHA**](https://antcpt.com/eng/information/demo-form/recaptcha-3-test-score.html) `--page=recaptcha`
 - [**FingerprintJS Pro**](https://fingerprintjs.com/demo) `--page=fingerprintjs`
@@ -143,14 +143,14 @@ $ npm run tests -- --page=sannysoft
 
 ### 🧰 Utils
 
-> /src/utils.ts
+> `/src/utils.ts`
 
 - **rand(min: number, max: number, precision?: number)** Returns a random number from a range.
 - **delay(min: number, max: number)** Shortcuts the rand method to return a options-ready object.
 
 ### 🖥 Browsers
 
-> /src/browsers/<browser>.ts
+> `/src/browsers/<browser>.ts`
 
 - **Chrome** Using executable path and [Stealth](https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth) plugin.
 - **MultiLogin** http://docs.multilogin.com/l/en/article/tkhr0ky2s6-puppeteer-browser-automation
@@ -159,20 +159,20 @@ $ npm run tests -- --page=sannysoft
 
 ### 💾 Storage
 
-> /storage/profiles/<uuid>
+> `/storage/profiles/<uuid>`
 
 Local storage folder for switching Chrome profiles.
 
 ### 📦 Database
 
-> /src/services/db.ts
-> /prisma/schema.prisma
+> `/src/services/db.ts`
+> `/prisma/schema.prisma`
 
 Uses the fantastic [Prisma](https://www.prisma.io) database abstraction library with a simple `sqlite` database, but this can easily be configured for any local or remote RDBS or keystore database.
 
 https://www.prisma.io
 
-##### Commands
+#### Commands
 ```shell script
 $ npm run db:init # Wipes the database and regenerates types and migrations
 $ npm run db:migrate # Creates migrations
@@ -180,7 +180,7 @@ $ npm run db:migrate:refresh # Long version of init
 $ npm run db:generate # Generates fresh prisma files
 ```
 
-##### Example
+#### Example
 ```ts
 import db from "./services/db"
 ;(async () => {
@@ -202,7 +202,7 @@ if (result) {
 
 ### 📃 Logging
 
-> src/services/logger.ts
+> `src/services/logger.ts`
 
 Uses [Winston](https://github.com/winstonjs/winston) to handle logging and output. Can but configured to transport to console, file, or third-party transport like `Google Cloud Logging` (provided).
 
