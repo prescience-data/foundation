@@ -6,15 +6,17 @@
 
 `Foundation` is intended as a simple entry-point / template for developers new to designing [Puppeteer](https://pptr.dev) bots.
 
-It uses the (in)famous [Puppeteer-Extra](https://github.com/berstend/puppeteer-extra) package as the primary Puppeteer driver to enable its library of `Stealth` plugins and evasions.
+It uses the (in)famous [Puppeteer-Extra](https://github.com/berstend/puppeteer-extra) package as the primary `Puppeteer` driver to enable its library of `Stealth` plugins and evasions.
 
 > 👋 PS: If you're working on botting and looking for a great developer community, check out the `Puppeteer-Extra` Discord server: https://discord.gg/vz7PeKk 
 
-It does not wrap existing libraries or attempt to "add" much that doesn't already exist, but starting a new project with an unfamiliar library can come with a lot of questions around project structure and tooling.
+`Foundation` tries to avoid wrapping existing libraries and does not "add" much that doesn't already exist, but starting a new project with an unfamiliar library can come with a lot of questions around project structure and tooling.
 
-This attempts to solve these issues with a ready-to-go scaffolding, however it should be noted that the structure is _just, like, my opinion man..._, considered under heavy flux - this shouldn't matter though, because it's just a starting point and you should take it in whatever direction makes sense.
+This attempts to solve these issues with a ready-to-go scaffolding, however it should be noted that the structure is _just, like, my opinion man..._ and considered under heavy flux.
 
-#### "Ok, but I've come from Selenium / Python?"
+However, breaking changes shouldn't matter, because its only intended as a starting point and you should take it in whatever direction makes sense.
+
+#### _"Ok, but I've come from Selenium / Python?"_
 If you're new to both modern JavaScript (`ES6` & `TypeScript`) _and_ `Puppeteer`, here's a quick rundown: 
 
 📚 [Newbie Guide To Scraping With Puppeteer](https://github.com/berstend/puppeteer-extra/wiki/Newbie-Guide-To-Scraping-With-Puppeteer)
@@ -59,7 +61,7 @@ $ npm run bot # Builds the app and runs your entrypoint file
 
 ## Project Structure
 
-The project is split into two distinct parts, `Core` and `App`.
+The project is split into two distinct parts, `core` and `app`.
 
 This allows you to develop a quasi-framework that you can re-use between projects in the `Core` concern, while keeping all project-specific code within the `App` concern.
 
