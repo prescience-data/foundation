@@ -24,7 +24,7 @@ If you're new to both modern JavaScript (`ES6` & `TypeScript`) _and_ `Puppeteer`
 ## Installation
 
 > ⚠ Note for Windows users:
-> This project does not include `cross-env`, so using [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Terminal Preview](https://www.microsoft.com/en-au/p/windows-terminal-preview/9n8g5rfz9xk3?rtc=1) is basically required. 
+> This project does not include `cross-env`, so using [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Terminal Preview](https://www.microsoft.com/en-au/p/windows-terminal-preview/9n8g5rfz9xk3?rtc=1) are essentially a requirement. 
 
 ### 🎬 Download and init
 
