@@ -59,6 +59,10 @@ $ npm run bot # Builds the app and runs your entrypoint file
 
 ## Project Structure
 
+The project is split into two distinct parts, `Core` and `App`.
+
+This allows you to develop a quasi-framework that you can re-use between projects in the `Core` concern, while keeping all project-specific code within the `App` concern.
+
 ### 🛠 Config
 
 > `core/config.ts`
@@ -94,6 +98,8 @@ It might seem like overkill to abstract logic out at the start _(which may be tr
 <img alt="Bloat" src="https://media1.tenor.com/images/8fc2c423280a6ae57be8660bb8898689/tenor.gif" width="350" /> <br />
 
 ### 👨‍🔬 Detection Tests
+
+> `core/tests/<name>.ts`
 
 A large part of building your bot is rapidly testing it against known detection code. 
 
@@ -142,6 +148,7 @@ $ npm run tests -- --page=sannysoft
 
 - **rand(min: number, max: number, precision?: number)** Returns a random number from a range.
 - **delay(min: number, max: number)** Shortcuts the rand method to return a options-ready object.
+- **whitespace(value: string)** Strips all duplicate whitespace and trims the string.
 
 ### 🖥 Browsers
 
