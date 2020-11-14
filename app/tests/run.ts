@@ -2,7 +2,7 @@ import chalk from "chalk"
 import { Browser, Page } from "puppeteer"
 import { argv } from "yargs"
 
-import { Chrome } from "../../core/browsers"
+import { Chrome, Edge } from "../../core/browsers"
 import { ElementNotFoundError } from "../../core/errors"
 import { log } from "../../core/services"
 import coreTests from "../../core/tests"
@@ -16,7 +16,8 @@ import myTests from "./index"
    */
 
   // Launch a Chrome browser based on our options.
-  const browser: Browser = await Chrome()
+  // const browser: Browser = await Chrome()
+  const browser: Browser = await Edge()
 
   // Now lets resolve a page instance.
   const page: Page = await browser.newPage()

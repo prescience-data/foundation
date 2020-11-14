@@ -4,15 +4,17 @@ import * as Services from "./services"
 import Tests from "./tests"
 
 /** Browsers **/
-export const Chrome = Browsers.Chrome
-export const MultiLogin = Browsers.MultiLogin
-export const Incognition = Browsers.Incognition
+export const Brave = Browsers.Brave
 export const Browserless = Browsers.Browserless
+export const Chrome = Browsers.Chrome
+export const Edge = Browsers.Edge
+export const Incognition = Browsers.Incognition
+export const MultiLogin = Browsers.MultiLogin
 
 /** Services **/
 export const db = Services.db
-export const log = Services.log
 export const env = Services.env
+export const log = Services.log
 
 /** Tests **/
 export const DataDome = Tests.DataDomeTest

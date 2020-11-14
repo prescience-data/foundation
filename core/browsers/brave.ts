@@ -8,22 +8,22 @@ import { getLaunchOptions } from "./config"
 import { ExecutablePaths } from "./types"
 
 /**
- * Provides a Chrome browser based on the users settings.
+ * Provides a Brave browser based on the users settings.
  * @return {Promise<Browser>}
  */
-export const ChromeBrowser = async (
+export const BraveBrowser = async (
   launchOptions: LaunchOptions = {}
 ): Promise<Browser> => {
   // Inform user of browser type.
-  log.info(`Booting a new Chrome browser.`)
+  log.info(`Booting a new Brave browser.`)
   // Merge any overrides provided.
-  const defaultOptions: LaunchOptions = getLaunchOptions("Chrome")
+  const defaultOptions: LaunchOptions = getLaunchOptions("Brave")
   const mergedOptions: LaunchOptions = merge(defaultOptions, launchOptions)
   // Before we start, let's enable the Stealth plugin.
   puppeteer.use(stealth())
   // Inform user of launch settings.
-  log.info(`Launching Chrome executable ${mergedOptions.executablePath}`)
-  // Launch a new Chrome browser from settings.
+  log.info(`Launching Brave executable ${mergedOptions.executablePath}`)
+  // Launch a new Brave browser from settings.
   return await puppeteer.launch(mergedOptions)
 }
 
@@ -32,10 +32,11 @@ export const ChromeBrowser = async (
  *
  * @type {{linux: string, windows: string, mac: string}}
  */
-export const chromeExecutablePaths: ExecutablePaths = {
-  windows: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
-  linux: "/usr/bin/google-chrome",
-  mac: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+export const braveExecutablePaths: ExecutablePaths = {
+  windows:
+    "C:\\Program Files (x86)\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+  linux: "/usr/lib/brave-bin/brave",
+  mac: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
 }
 
-export default ChromeBrowser
+export default BraveBrowser

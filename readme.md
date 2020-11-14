@@ -81,7 +81,9 @@ The main Puppeteer `LaunchOptions` are defined in the `config.ts` file.
 
 Main self-executing function entry-point. 
 
-This is where you execute each part of your scoped logic from the `modules` section cleanly. Make some magic happen 🧙✨...
+This is where you execute each part of your scoped logic from the `modules` section cleanly. 
+
+Make some magic happen 🧙✨...
 
 <img alt="Evil plan" src="https://media1.tenor.com/images/639cc3c3ea7d5e1b757683ef6d071b5e/tenor.gif" width="350" />
 
@@ -182,10 +184,18 @@ Aim to keep all your small, highly re-used utility functions in a single place.
 
 > `core/browsers/<browser>.ts`
 
-- **Chrome** Using executable path and [Stealth](https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth) plugin.
+#### Regular Browsers
+All regular browsers are auto-loaded with the [Stealth](https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth) plugin.
+- **Chrome** Using executable path. https://www.google.com/intl/en_au/chrome/
+- **Brave** Using executable path. https://brave.com/
+- **Edge** Using executable path. _(Not available on Linux hosts)_ https://www.microsoft.com/en-us/edge
+#### Fancy Browsers
+- **Browserless** https://docs.browserless.io/
 - **MultiLogin** http://docs.multilogin.com/l/en/article/tkhr0ky2s6-puppeteer-browser-automation
 - **Incognition** https://incogniton.com/knowledge%20center/selenium-browser-automation
-- **Browserless** https://docs.browserless.io/
+
+
+<img alt="Surfin' the web" src="https://media.tenor.com/images/94a163a123b2c7e58ad94b331dadbaab/tenor.gif" width="350" />
 
 #### Examples
 ##### Chrome

@@ -16,15 +16,13 @@
 	"strict":                       true
   },
   "include":         [
-	"app/**/*"
+	"app/**/*",
+	"core/**/*"
   ],
   "exclude":         [
 	"node_modules",
 	"node_modules/**/*",
 	"dist",
-	"build",
-	"vendor",
-	"app/**/*.spec.tsx",
-	"app/**/*.spec.ts"
+	"build"
   ]
 }

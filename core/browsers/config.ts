@@ -2,7 +2,12 @@ import { resolve } from "app-root-path"
 import { LaunchOptions } from "puppeteer"
 import merge from "ts-deepmerge"
 
+import BrowserNotFoundError from "../errors/browser-not-found"
 import { env, log } from "../services"
+import { braveExecutablePaths } from "./brave"
+import { chromeExecutablePaths } from "./chrome"
+import { edgeExecutablePaths } from "./edge"
+import { ExecutablePaths } from "./types"
 
 /**
  * Default screen size.
@@ -16,11 +21,14 @@ export const defaultViewport = {
 /**
  * Retrieves the browser executable path required in launch options.
  *
- * @param {"OSX" | "Darwin" | "Windows" | "Windows_NT" | "Linux" | "Ubuntu" | "Alpine" | string} os
+ * @param {"Chrome" | "Brave" | "Edge"} browser
+ * @param {"Mac" | "OSX" | "Darwin" | "Windows" | "Windows_NT" | "Linux" | "Ubuntu" | "Alpine" | string} os
  * @return {string}
  */
 export const getBrowserExecutablePath = (
+  browser: "Chrome" | "Brave" | "Edge" = "Chrome",
   os?:
+    | "Mac"
     | "OSX"
     | "Darwin"
     | "Windows"
@@ -30,27 +38,54 @@ export const getBrowserExecutablePath = (
     | "Alpine"
     | string
 ): string => {
-  log.info(`Getting Chrome's executable path for ${os}`)
-  os = os ? os : env.OS
+  os = os ? os : `${env.OS}`
+  log.info(`Getting ${browser}'s executable path for ${os}`)
   if (!os) {
     if (env.BROWSER_EXEC_PATH) {
       return env.BROWSER_EXEC_PATH
     }
-    throw new Error(`No browser exec path or os was defined.`)
+    throw new BrowserNotFoundError(browser, os)
   }
+
+  // Load the cross-platform executable paths for the selected browser.
+  let paths: ExecutablePaths
+  switch (browser) {
+    case "Brave":
+      paths = braveExecutablePaths
+      break
+    case "Edge":
+      paths = edgeExecutablePaths
+      break
+    case "Chrome":
+    default:
+      paths = chromeExecutablePaths
+  }
+
+  // Switch through possible OS values to find an executable path.
   switch (os) {
+    case "Mac":
     case "OSX":
     case "Darwin":
-      return "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+      if (paths.mac) {
+        return paths.mac
+      }
+      break
     case "Windows":
     case "Windows_NT":
-      return "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+      if (paths.windows) {
+        return paths.windows
+      }
+      break
     case "Alpine":
     case "Ubuntu":
     case "Linux":
-      return "/usr/bin/google-chrome"
+      if (paths.linux) {
+        return paths.linux
+      }
+      break
   }
 
+  // If we cannot resolve an executable path, abort.
   throw new Error(`Could not resolve an executable path for ${os}.`)
 }
 
@@ -82,19 +117,6 @@ export const getLaunchArgs = (overrides: string[] = []): string[] => {
 }
 
 /**
- * You can use this function in a bot script to apply overrides to the base launch options.
- *
- * @example const browser = await Chrome(makeLaunchOptions({userDataDir: "path/to/profile"})
- * @param {LaunchOptions} overrides
- * @return {LaunchOptions}
- */
-export const makeLaunchOptions = (
-  overrides: LaunchOptions = {}
-): LaunchOptions => {
-  return merge(options, overrides)
-}
-
-/**
  * Use this function to resolve a user profile directory in the storage folder for a provided profile name.
  * Generally you would store your profile ids/names in a database to call them when needed.
  * This is not required for anti-detect browsers such as MultiLogin etc as they handle their own isolation.
@@ -115,7 +137,30 @@ export const options: LaunchOptions = {
   headless: env.BROWSER_HEADLESS === "true",
   ignoreHTTPSErrors: true,
   args: getLaunchArgs(),
-  executablePath: getBrowserExecutablePath(env.OS),
   userDataDir: getUserDataDir(),
   defaultViewport: defaultViewport,
+}
+
+/**
+ * Builds the launch options for a specific browser.
+ *
+ * @param {"Chrome" | "Brave" | "Edge"} browser
+ * @param {"Mac" | "OSX" | "Darwin" | "Windows" | "Windows_NT" | "Linux" | "Ubuntu" | "Alpine"} os
+ * @return {LaunchOptions}
+ */
+export const getLaunchOptions = (
+  browser: "Chrome" | "Brave" | "Edge" = "Chrome",
+  os?:
+    | "Mac"
+    | "OSX"
+    | "Darwin"
+    | "Windows"
+    | "Windows_NT"
+    | "Linux"
+    | "Ubuntu"
+    | "Alpine"
+): LaunchOptions => {
+  return merge(options, {
+    executablePath: getBrowserExecutablePath(browser, os),
+  })
 }
