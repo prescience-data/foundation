@@ -1,1 +1,0 @@
-{"net":{"http_server_properties":{"servers":[{"alternative_service":[{"advertised_versions":[50],"expiration":"13252384064923960","port":443,"protocol_str":"quic"}],"isolation":[],"server":"https://accounts.google.com","supports_spdy":true},{"isolation":[],"server":"https://www.startpage.com","supports_spdy":true}],"version":5},"network_qualities":{"CAASABiAgICA+P////8B":"3G"}}}

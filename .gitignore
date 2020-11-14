@@ -18,6 +18,9 @@ build/**/*
 *.tgz
 .grunt
 
+# Transient Data
+storage
+
 # Environment
 #.env
 
