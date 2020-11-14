@@ -148,6 +148,8 @@ $ npm run tests -- --page=sannysoft
 
 > `core/utils.ts`
 
+Aim to keep all your small, highly re-used utility functions in a single place.
+
 - **rand(min: number, max: number, precision?: number)** Returns a random number from a range.
 - **delay(min: number, max: number)** Shortcuts the rand method to return a options-ready object.
 - **whitespace(value: string)** Strips all duplicate whitespace and trims the string.
@@ -299,3 +301,4 @@ The project comes preconfigured with the following tooling to keep your code nea
 - [ ] Write mouse movement recorder and database storage driver
 - [ ] Add `ghost-cursor` to demo
 - [ ] Apply optional world isolation
+- [ ] Add emojis to logger

@@ -31,6 +31,7 @@ export const MultiLoginBrowser = async (
 
 /**
  * Retrieves a CDP websocket from a running MultiLogin browser.
+ *
  * @param {Settings} settings
  * @return {Promise<string>}
  */
