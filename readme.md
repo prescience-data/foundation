@@ -176,30 +176,6 @@ $ npm run tests -- --page=sannysoft
   const page: Page = await browser.newPage()
 ```
 
-export const pixelscan = async (page: Page): Promise<Record<string, any>> => {
-  // Load the test page.  
-  await page.goto("https://pixelscan.net", { waitUntil: "networkidle2" })
-  await page.waitForTimeout(1500)
-  // Extract the result element text.
-  const element = await page.$("#consistency h1")
-  if (!element) {
-    throw new Error(`Could not find result element.`)
-  }
-  const result = (
-    await page.evaluate((element) => element.textContent, element)
-  ).replace(/\s/g, " ").trim()
-  // Notify and return result.
-  if (result) {
-    logger.info(chalk.green(`Success! Retrieved test page.`))
-    logger.info(result)
-    return { result: result }
-  } else {
-    logger.error(chalk.red(`Failed! No results were found.`))
-    return {}
-  }
-}
-```
-
 ### 💾 Storage
 
 > `/storage/profiles/<uuid>`
