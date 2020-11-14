@@ -92,7 +92,8 @@ You call this module from the cli with:
 $ npm run bot
 ```
 
-Or if you start to add cli arguments:
+#### Cli Arguments
+You may wish to add cli arguments to direct the code in specific directions:
 
 ```shell script
 $ npm run bot -- --command=<CommandName>
