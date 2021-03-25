@@ -309,6 +309,20 @@ Check the docs here to extend or configure transports / switch out completely.
 - **Google Cloud Logging** https://cloud.google.com/logging/docs
 - **Bugsnag** https://docs.bugsnag.com/platforms/javascript/ 
 
+#### Google Cloud Logging configuration
+
+To setup `Google Cloud Logging`, you'll need a [service account](https://cloud.google.com/iam/docs/service-accounts) with `Logs Writer` and `Monitoring Metric Writer` permissions.
+
+**Guide:**
+
+1. Create a GCP project <https://console.cloud.google.com>
+2. [Enable the Cloud Logging API](https://console.cloud.google.com/marketplace/product/google/logging.googleapis.com)
+3. [Create a service account](https://console.cloud.google.com/apis/api/logging.googleapis.com/credentials?folder=true&organizationId=true)
+   - required roles:
+     - Logging > Logs Writer
+     - Monitoring > Monitoring Metric Writer
+4. Add a JSON key to the service account and download it to `resources/google`
+5. Make sure to edit the `.env` to match your service account key's filename ! (`GOOGLE_LOGGING_KEYFILE` property)
 
 ## Tooling
 
@@ -334,7 +348,6 @@ The project comes preconfigured with the following tooling to keep your code nea
 
 - [ ] Writing `Mocha` tests
 - [ ] More demos!
-- [ ] `Google Cloud Logging` instructions
 - [ ] Define other database systems eg `Firebase`
 - [ ] Containerize with `Docker`
 - [ ] Write mouse movement recorder and database storage driver
