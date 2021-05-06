@@ -1,5 +1,8 @@
 # 🧱 Foundation - Puppeteer Bot Starter Kit
 
+## Update:
+> Currently working on https://masqueradejs.com to replace this project as it is quite a bit out of date now, but in the mean time you can check out https://github.com/clouedoc/puppeteer-boiler which is similar and actively updated. 👾
+
 ## What it is?
 
 <img alt="Wot..." src="https://media1.tenor.com/images/f3707787e8d0475075e7349402e97e08/tenor.gif" width="350" /> <br /> 
